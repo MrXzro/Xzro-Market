@@ -53,7 +53,7 @@
             修改
           </el-button>
           <el-popconfirm
-            title="你确定要删除该员工吗？"
+            title="你确定要删除该商品吗？"
             confirm-button-text="确认"
             cancel-button-text="取消"
             width="200px"
