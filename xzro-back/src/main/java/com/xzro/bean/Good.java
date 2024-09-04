@@ -40,4 +40,5 @@ public class Good {
     private Integer stock;
     //商品组
     private List<Ggroup> ggroups;
+
 }

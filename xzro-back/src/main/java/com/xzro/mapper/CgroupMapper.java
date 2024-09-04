@@ -16,7 +16,7 @@ import java.util.List;
 public interface CgroupMapper {
     //TODO:软删除分组下成员
     //TODO:批量加入分组
-    //TODO:查询所有分组
+    //查询所有分组
     List<Cgroup> selectAll();
     //删除分组(根据ID)
     int delete(Integer id);
@@ -25,6 +25,6 @@ public interface CgroupMapper {
     int update(Cgroup cgroup);
 
     //增加分组
-    int insert(Cgroup cgroup);
+    int insert(String cgroup);
 
 }

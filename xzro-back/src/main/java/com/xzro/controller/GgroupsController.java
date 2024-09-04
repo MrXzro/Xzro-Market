@@ -4,10 +4,7 @@ import com.xzro.bean.Ggroup;
 import com.xzro.bean.RespBean;
 import com.xzro.service.GgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,10 @@ public class GgroupsController {
     public RespBean selectAll() {
         List<Ggroup> ggroups = ggroupsService.selectAll();
         return RespBean.ok("查询成功", ggroups);
+    }
+    @PostMapping
+    private RespBean delete() {
+        return RespBean.ok("删除成功");
+
     }
 }
