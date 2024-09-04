@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzro.mapper.GoodsMapper">
+    <!--查询映射-->
+    <resultMap id="goods" type="good">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="img" property="img"/>
+        <result column="description" property="description"/>
+        <result column="cost" property="cost"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+        <result column="status" property="status"/>
+        <result column="sales_volume" property="salesVolume"/>
+        <collection property="ggroups" ofType="Ggroup" column="id" select="selectGroup">
+            <result column="id" property="id"></result>
+            <result column="id" property="name"></result>
+        </collection>
+    </resultMap>
+    <insert id="insert">
+        INSERT INTO `goods` (`name`, `img`, `description`, `cost`, `price`, `sales_volume`, `stock`)
+        VALUES (#{name}, #{img}, #{description}, #{cost}, #{price}, #{salesVolume}, #{stock})
+    </insert>
+    <insert id="insertAssociate">
+        INSERT INTO `good_group`(`good_id`,`good_group_id`) VALUES
+        <foreach collection="groups" item="item" separator=",">
+            (#{id},#{item})
+        </foreach>
+    </insert>
+    <update id="updateGoods">
+        UPDATE `goods`
+        SET `name` = #{name}, `img` = #{img}, `description`=#{description}, `cost` = #{cost}, `price` = #{price}, `sales_volume` = #{salesVolume}, `stock` = #{stock}
+        WHERE `id`= #{id}
+    </update>
+    <delete id="deleteGood">
+        UPDATE `goods` SET `isDelete` = 1 WHERE `id` = #{id}
+    </delete>
+    <delete id="deleteAssociate">
+        DELETE FROM `good_group` WHERE `good_id` = #{id}
+    </delete>
+    <select id="selectById" resultMap="goods">
+        SELECT g.* FROM `goods` g
+        WHERE g.`id` = #{id} AND `isDelete` = 0
+    </select>
+    <select id="selectAll" resultMap="goods">
+        SELECT * FROM `goods` WHERE `name` LIKE CONCAT('%', #{name}, '%') AND `isDelete` = 0 ORDER BY `id`ASC
+
+    </select>
+    <!--嵌套子查询-->
+    <select id="selectGroup" resultType="ggroup">
+        SELECT gg.*,ggp.good_id FROM `ggroup` gg LEFT JOIN `good_group` ggp ON gg.`id` = ggp.`good_group_id` WHERE ggp.`good_id` = #{id} ORDER BY gg.`id`
+    </select>
+</mapper>

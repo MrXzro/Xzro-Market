@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzro.mapper.CustomerMapper">
+    <!--客户映射文件-->
+    <resultMap id="customerMap" type="customer">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="age" property="age"/>
+        <result column="phone" property="phone"/>
+        <result column="status" property="status"/>
+        <result column="customer_group_id" property="groupId"/>
+        <association property="customerGroup" javaType="cgroup">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO `goodmanager`.`customer` (`username`, `password`, `name`, `age`, `gender`, `phone`, `status`, `customer_group_id`)
+        VALUES (#{username}, #{password}, #{name} , #{age}, #{gender}, #{phone}, #{status}, #{groupId});
+    </insert>
+    <update id="update">
+        UPDATE `customer`
+        SET `username` = #{username}, `password` = #{password}, `name` = #{name}, `age` = #{age}, `gender` = #{gender}, `phone` = #{phone}, `status` = #{status}, `customer_group_id` = #{groupId}
+        WHERE `id` = #{id};
+    </update>
+    <delete id="deleteById">
+        DELETE FROM `customer` WHERE = #{id}
+    </delete>
+    <select id="selectAll" resultMap="customerMap">
+        SELECT c.*, cg.* FROM `customer` c
+        LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
+        WHERE c.name LIKE CONCAT('%', #{name}, '%');
+    </select>
+    <select id="selectById" resultType="com.xzro.bean.Customer">
+        SELECT c.*, cg.* FROM `customer` c
+        LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
+        WHERE c.`id` = #{id};
+    </select>
+
+
+</mapper>

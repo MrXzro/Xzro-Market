@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzro.mapper.OrdersMapper">
+    <!--订单映射商品-->
+    <resultMap id="orderMap" type="order">
+        <id column="id" property="id"></id>
+        <result column="order_no" property="orderNo"></result>
+        <result column="status" property="status"></result>
+        <result column="paid_price" property="paidPrice"></result>
+        <result column="payment_method" property="paymentMethod"></result>
+        <result column="start_date" property="startDate"></result>
+        <result column="end_date" property="endDate"></result>
+        <association property="customer" javaType="customer">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="name" property="name"/>
+            <result column="gender" property="gender"/>
+            <result column="age" property="age"/>
+            <result column="phone" property="phone"/>
+            <result column="status" property="status"/>
+            <result column="customer_group_id" property="groupId"/>
+        </association>
+        <collection property="goods" ofType="good">
+            <id column="good_id" property="id"/>
+            <result column="good_name" property="name"/>
+            <result column="img" property="img"/>
+            <result column="description" property="description"/>
+            <result column="cost" property="cost"/>
+            <result column="price" property="price"/>
+            <result column="stock" property="stock"/>
+            <result column="sales_volume" property="salesVolume"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO `goodmanager`.`orders` (`order_no`, `status`, `paid_price`, `payment_method`, `customer_id`)
+        VALUES (#{orderNo}, #{status}, #{paidPrice}, #{paymentMethod}, #{customerId});
+    </insert>
+    <insert id="insertAssociate">
+        INSERT INTO `goodmanager`.`order_good` (`order_id`, `good_id`) VALUES
+        <foreach collection="goods" item="good" separator=",">
+            (#{id},#{good})
+        </foreach>
+    </insert>
+    <update id="update"></update>
+    <delete id="delete">
+        DELETE
+        FROM `orders`
+        WHERE `id` = #{id}
+    </delete>
+    <delete id="deleteAssociate">
+        DELETE
+        FROM `order_good`
+        WHERE `id` = #{id}
+    </delete>
+    <select id="selectAll" resultMap="orderMap">
+        SELECT o.*, c.*, g.`id` as good_id, g.`name` as good_name, g.*
+        FROM `orders` o
+        LEFT JOIN `customer` c
+        ON o.`customer_id` = c.`id`
+        LEFT JOIN `order_good` og
+        ON o.`id` = og.`order_id`
+        LEFT JOIN `goods` g
+        ON g.`id` = og.`good_id`
+        WHERE o.`order_no` LIKE CONCAT('%',#{orderNo},'%') AND o.`isDelete` = 0;
+    </select>
+</mapper>
