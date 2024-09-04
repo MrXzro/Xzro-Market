@@ -6,6 +6,9 @@ const goodsApi = {
     selectById(id) {
         return service.get(`/api/goods/selectById/${id}`)
     },
+    selectByGroup(id,currentPage) {
+        return service.get(`/api/goods/selectByGroup/${id}/${currentPage}`)
+    },
     deleteById(id) {
         return service.post("/api/goods/deleteById", { "id": id })
     },
