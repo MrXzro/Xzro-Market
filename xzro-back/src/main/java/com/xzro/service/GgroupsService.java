@@ -18,5 +18,11 @@ public interface GgroupsService {
     List<Ggroup> selectAll();
 
     //删除分组
-    int delete();
+    boolean delete(Integer id);
+
+    //新增商品分组
+    boolean insert(Ggroup ggroup);
+
+    //修改商品分组
+    boolean update(Ggroup ggroup);
 }

@@ -19,6 +19,8 @@ public interface GoodsService {
     //根据名称查询
     List<Good> selectByName(String name);
 
+    //根据分组查询
+    List<Good> selectByGroup(Integer gid);
     //根据ID查询
     Good selectById(Integer id);
 

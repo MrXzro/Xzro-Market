@@ -34,6 +34,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<Good> selectByGroup(Integer gid) {
+        return goodsMapper.selectByGroup(gid);
+    }
+
+
+    @Override
     @Transactional
     public boolean insert(Good good, Integer[] group) {
         goodsMapper.insert(good);

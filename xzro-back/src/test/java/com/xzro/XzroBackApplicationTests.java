@@ -17,7 +17,7 @@ class XzroBackApplicationTests {
     private OrdersMapper ordersMapper;
    @Test
    public void test1(){
-       System.out.println(goodsMapper.selectById(1));
+       System.out.println(goodsMapper.selectByGroup(1));
    }
    @Test
    public void test2(){

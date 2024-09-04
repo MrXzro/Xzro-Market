@@ -27,7 +27,17 @@ public class GgroupsServiceImpl implements GgroupsService {
     }
 
     @Override
-    public int delete() {
-        return 0;
+    public boolean delete(Integer id) {
+        return ggroupMapper.delete(id) != 0;
+    }
+
+    @Override
+    public boolean insert(Ggroup ggroup) {
+        return ggroupMapper.insert(ggroup) != 0;
+    }
+
+    @Override
+    public boolean update(Ggroup ggroup) {
+        return ggroupMapper.update(ggroup) != 0;
     }
 }

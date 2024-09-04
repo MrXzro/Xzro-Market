@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName: GroupsController
@@ -23,13 +24,28 @@ import java.util.List;
 public class GgroupsController {
     @Autowired
     private GgroupsService ggroupsService;
+    //查询所有
     @GetMapping("/selectAll")
     public RespBean selectAll() {
         List<Ggroup> ggroups = ggroupsService.selectAll();
         return RespBean.ok("查询成功", ggroups);
     }
-    @PostMapping
-    private RespBean delete() {
-        return RespBean.ok("删除成功");
+    //根据ID删除
+    @PostMapping("/deleteById")
+    private RespBean delete(Map<String,Object> map) {
+        if (ggroupsService.delete((Integer)map.get("id"))){
+            return RespBean.ok("删除成功");
+
+        }
+        return RespBean.error("删除失败");
+    }
+
+    //添加商品分组
+    @PostMapping("/insertGgroup")
+    private RespBean insertGgroup(Ggroup ggroup) {
+        if (ggroupsService.insert(ggroup)) {
+            return RespBean.ok("添加成功");
+        }
+        return RespBean.error("添加失败");
     }
 }

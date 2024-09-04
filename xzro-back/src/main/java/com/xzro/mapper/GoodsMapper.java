@@ -19,8 +19,12 @@ public interface GoodsMapper {
     Good selectById(Integer id);
     //查询所有商品（根据商品名称查询）
     List<Good> selectAll(String name);
+
+    //根据分组ID查询商品
+    List<Good> selectByGroup(Integer gid);
     //根据商品ID修改商品
     int updateGoods(Good good);
+
 
     //更新关系表中的数据
     int insertAssociate(@Param("id") Integer id, @Param("groups") Integer[] groups);
