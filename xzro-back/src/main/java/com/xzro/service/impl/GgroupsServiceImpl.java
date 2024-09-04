@@ -25,4 +25,9 @@ public class GgroupsServiceImpl implements GgroupsService {
     public List<Ggroup> selectAll() {
         return ggroupMapper.selectAll();
     }
+
+    @Override
+    public int delete() {
+        return 0;
+    }
 }

@@ -31,6 +31,5 @@ public class GgroupsController {
     @PostMapping
     private RespBean delete() {
         return RespBean.ok("删除成功");
-
     }
 }

@@ -16,4 +16,7 @@ import java.util.List;
 public interface GgroupsService {
     //查询所有分组
     List<Ggroup> selectAll();
+
+    //删除分组
+    int delete();
 }
