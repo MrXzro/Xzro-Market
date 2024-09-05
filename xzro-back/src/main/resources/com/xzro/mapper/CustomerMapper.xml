@@ -30,16 +30,14 @@
     <delete id="deleteById">
         DELETE FROM `customer` WHERE = #{id}
     </delete>
-    <select id="selectAll" resultMap="customerMap">
-        SELECT c.*, cg.* FROM `customer` c
-        LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
-        WHERE c.name LIKE CONCAT('%', #{name}, '%');
-    </select>
     <select id="selectById" resultType="com.xzro.bean.Customer">
         SELECT c.*, cg.* FROM `customer` c
         LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
         WHERE c.`id` = #{id};
     </select>
-
-
+    <select id="selectAll" resultMap="customerMap">
+        SELECT c.*, cg.* FROM `customer` c
+        LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
+        WHERE c.name LIKE CONCAT('%', #{name}, '%');
+    </select>
 </mapper>
