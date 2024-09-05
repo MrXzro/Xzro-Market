@@ -17,6 +17,8 @@ public interface GgroupsService {
     //查询所有分组
     List<Ggroup> selectAll();
 
+    //根据ID查询分组
+    Ggroup selectById(Integer id);
     //删除分组
     boolean delete(Integer id);
 

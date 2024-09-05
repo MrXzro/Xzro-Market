@@ -18,7 +18,7 @@ public interface GgroupMapper {
     //TODO:批量加入分组
     //查询所有商品组
     List<Ggroup> selectAll();
-    //根据ID查询所有组
+    //根据ID查询分组
     Ggroup selectById(Integer id);
     //删除商品组
     int delete(Integer id);

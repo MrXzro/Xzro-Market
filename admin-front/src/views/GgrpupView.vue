@@ -123,6 +123,21 @@
     </template>
   </el-dialog>
   <!-- 添加分组的对话框结束 -->
+  <!-- 修改分组的对话框开始 -->
+  <el-dialog v-model="updateDialogShow" title="修改分组" width="500">
+    <el-form :model="groupInfo">
+      <el-form-item label="名称" label-width="10%">
+        <el-input v-model="groupInfo.name" autocomplete="off" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="addDialogShow = false">取消</el-button>
+        <el-button type="primary" @click="update()"> 确认 </el-button>
+      </div>
+    </template>
+  </el-dialog>
+  <!-- 修改分组的对话框结束 -->
 </template>
 
 <script setup>
@@ -147,7 +162,45 @@ const groupInfo = ref({
 });
 //是否显示添加对话框
 const addDialogShow = ref(false);
+//是否显示修改对话框
+const updateDialogShow = ref(false);
 
+
+//修改分组方法
+function update(){
+    ggroupsApi.update(groupInfo.value).then(resp=>{
+      if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 1200,
+      });
+      updateDialogShow.value = false
+      selectAll()
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
+    })
+}
+//显示修改分组对话框
+function showUpdateDialog(id){
+  ggroupsApi.selectById(id).then(resp=>{
+    if (resp.code == 10000) {
+      groupInfo.value = resp.data
+      updateDialogShow.value = true
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
+  })
+}
 //添加分组方法
 function insert() {
   ggroupsApi.insert(groupInfo.value).then((resp) => {

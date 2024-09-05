@@ -30,6 +30,13 @@ public class GgroupsController {
         List<Ggroup> ggroups = ggroupsService.selectAll();
         return RespBean.ok("查询成功", ggroups);
     }
+
+    //根据ID查询分组
+    @GetMapping("/selectById/{id}")
+    public RespBean selectById(@PathVariable("id") Integer id) {
+        Ggroup ggroup = ggroupsService.selectById(id);
+        return RespBean.ok("查询成功", ggroup);
+    }
     //根据ID删除
     @PostMapping("/deleteById")
     private RespBean delete(@RequestBody Map<String,Object> map) {

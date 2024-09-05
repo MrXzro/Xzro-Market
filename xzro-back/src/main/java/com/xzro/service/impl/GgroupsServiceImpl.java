@@ -28,6 +28,11 @@ public class GgroupsServiceImpl implements GgroupsService {
     }
 
     @Override
+    public Ggroup selectById(Integer id) {
+        return ggroupMapper.selectById(id);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer id) {
         ggroupMapper.delete(id);
