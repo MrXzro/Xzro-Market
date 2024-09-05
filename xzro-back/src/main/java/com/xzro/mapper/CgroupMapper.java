@@ -18,6 +18,9 @@ public interface CgroupMapper {
     //TODO:批量加入分组
     //查询所有分组
     List<Cgroup> selectAll(String name);
+
+    //根据ID查询分组
+    Cgroup selectById(Integer id);
     //删除分组(根据ID)
     int delete(Integer id);
 
@@ -25,6 +28,6 @@ public interface CgroupMapper {
     int update(Cgroup cgroup);
 
     //增加分组
-    int insert(String cgroup);
+    int insert(Cgroup cgroup);
 
 }

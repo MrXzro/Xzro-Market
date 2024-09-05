@@ -13,4 +13,7 @@
     <select id="selectAll" resultType="com.xzro.bean.Cgroup">
         SELECT * FROM `cgroup` WHERE `name` LIKE CONCAT('%',#{name},'%')
     </select>
+    <select id="selectById" resultType="com.xzro.bean.Cgroup">
+        SELECT * FROM `cgroup` WHERE `id` = #{id}
+    </select>
 </mapper>

@@ -22,8 +22,30 @@ import java.util.List;
 public class CgroupServiceImpl implements CgroupService {
     @Autowired
     private CgroupMapper cgroupMapper;
+    //查询所有
     @Override
     public List<Cgroup> selectAll() {
         return cgroupMapper.selectAll("");
     }
+    //根据ID查询
+    @Override
+    public Cgroup selectById(Integer id) {
+        return cgroupMapper.selectById(id);
+    }
+    //根据ID删除
+    @Override
+    public boolean delete(Integer id) {
+        return cgroupMapper.delete(id) != 0;
+    }
+    //添加分组
+    @Override
+    public boolean insert(Cgroup cgroup) {
+        return cgroupMapper.insert(cgroup) != 0;
+    }
+    //修改分组
+    @Override
+    public boolean update(Cgroup cgroup) {
+        return cgroupMapper.update(cgroup)!=0;
+    }
+
 }

@@ -18,4 +18,16 @@ public interface CgroupService {
     //查询所有分组
     List<Cgroup> selectAll();
 
+    //根据ID查询分组
+    Cgroup selectById(Integer id);
+
+    //根据ID删除分组
+    boolean delete(Integer id);
+
+    //添加分组
+    boolean insert(Cgroup cgroup);
+
+    //修改分组
+    boolean update(Cgroup cgroup);
+
 }
