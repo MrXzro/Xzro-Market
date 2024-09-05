@@ -3,6 +3,9 @@ const customerApi = {
     selectByPage(currentPage){
         return service.get(`/api/customer/selectByPage/${currentPage}`);
     },
+    selectByGroup(id,currentPage) {
+        return service.get(`/api/customer/selectByGroup/${id}/${currentPage}`)
+    },
     selectById(id){
         return service.get(`/api/customer/selectById/${id}`)
     },

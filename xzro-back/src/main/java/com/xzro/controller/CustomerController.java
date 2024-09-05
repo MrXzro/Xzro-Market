@@ -46,7 +46,7 @@ public class CustomerController {
         return RespBean.error("查询失败");
     }
     //根据分组查询用户接口
-    @PostMapping("/selectByGroup/{id}/{currentPage}}")
+    @GetMapping("/selectByGroup/{id}/{currentPage}")
     public RespBean selectByGroup(@PathVariable("id") Integer id, @PathVariable("currentPage") Integer currentPage) {
         PageHelper.startPage(currentPage, 10);
         List<Customer> customers = customerService.selectByGroup(id);

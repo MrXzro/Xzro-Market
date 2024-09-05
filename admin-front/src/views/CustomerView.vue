@@ -230,8 +230,8 @@
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import customerApi from "@/api/customerApi";
-import CgroupApi from "@/api/cgroupApi";
-//商品分组信息
+import cgroupApi from "@/api/cgroupApi";
+//客户信息表
 const CustomerList = ref([]);
 //当前分页
 const currentPage = ref(1);
@@ -381,7 +381,7 @@ function getUserGroupName(id) {
 }
 //获取所有分组信息
 function getAllGroup() {
-  CgroupApi.selectAll().then((resp) => {
+  cgroupApi.selectAll().then((resp) => {
     groupList.value = resp.data;
   });
 }
