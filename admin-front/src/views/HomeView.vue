@@ -12,29 +12,30 @@
           <el-menu
             default-active="2"
             class="aside-menu"
+            @select="toPage"
           >
             <el-sub-menu index="1">
               <template #title>
                 <el-icon><location /></el-icon>
                 <span>用户管理</span>
               </template>
-                <el-menu-item index="1-1">用户管理</el-menu-item>
-                <el-menu-item index="1-2">用户组管理</el-menu-item>
+                <el-menu-item index="/customer">用户管理</el-menu-item>
+                <!-- <el-menu-item index="">用户组管理</el-menu-item> -->
             </el-sub-menu>
             <el-sub-menu index="2">
               <template #title>
                 <el-icon><location /></el-icon>
                 <span>商品管理</span>
               </template>
-                <el-menu-item index="1-1">商品信息</el-menu-item>
-                <el-menu-item index="1-2">商品分组</el-menu-item>
+                <el-menu-item index="/goods">商品信息</el-menu-item>
+                <el-menu-item index="/ggroups">商品分组</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="3">
               <template #title>
                 <el-icon><location /></el-icon>
                 <span>订单管理</span>
               </template>
-                <el-menu-item index="1-1">订单信息</el-menu-item>
+                <!-- <el-menu-item index="1-1">订单信息</el-menu-item> -->
             </el-sub-menu>
           </el-menu>
         </el-aside>
@@ -61,7 +62,13 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 import { RouterView } from 'vue-router';
+import router from '@/router'
 
+
+function toPage(indexPath) {
+  //编程式导航
+  router.push(indexPath)
+}
 </script>
 <style scope>
 .aside-menu{

@@ -4,13 +4,14 @@ import GoodsView from '../views/GoodsView.vue'
 //暗黑模式样式 1
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import GgrpupView from '@/views/GgrpupView.vue'
+import CustomerView from '@/views/CustomerView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      redirect:'/ggroups',
+      redirect:'/customer',
       component: HomeView,
       children:[{
         path:'/goods',
@@ -20,6 +21,10 @@ const router = createRouter({
         path:'/ggroups',
         name:'ggroups',
         component:GgrpupView
+      },{
+        path:'/customer',
+        name:'customer',
+        component:CustomerView
       }]
     }
   ]
