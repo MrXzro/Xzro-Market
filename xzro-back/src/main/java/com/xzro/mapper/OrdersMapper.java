@@ -17,11 +17,15 @@ import java.util.List;
 public interface OrdersMapper {
     //查询订单（订单号）
     List<Order> selectAll(String orderNo);
+
+    //根据ID查询订单
+    Order selectById(Integer id);
+
     //增加订单
     int insert(Order order);
 
     //添加订单关系
-    int insertAssociate(@Param("id") Integer id, @Param("goods") Long[] goods);
+    int insertAssociate(@Param("id") Integer id, @Param("goods") Integer[] goods);
 
     //删除订单关系
     int deleteAssociate(Integer id);
@@ -29,6 +33,6 @@ public interface OrdersMapper {
     //删除订单(根据ID)
     int delete(Integer id);
     //修改订单
-    int update(@Param("order") Order order, @Param("goods") Integer[] goods);
+    int update(Order order);
 
 }
