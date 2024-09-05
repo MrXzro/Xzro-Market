@@ -62,11 +62,11 @@
                 修改
               </el-button>
               <el-popconfirm
-                title="你确定要删除该分组吗？"
+                title="你确定要删除该客户吗？"
                 confirm-button-text="确认"
                 cancel-button-text="取消"
                 width="200px"
-                @confirm="deleteGroup(scope.row.id)"
+                @confirm="deleteCustomer(scope.row.id)"
               >
                 <template #reference>
                   <el-button link type="primary" size="small">删除</el-button>
@@ -262,6 +262,24 @@ const imageUrl = ref("");
 
 
 //删除客户
+function deleteCustomer(id){
+  customerApi.delete(id).then(resp=>{
+    if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 1200,
+      });
+      selectByPage(currentPage.value);
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
+  })
+}
 //修改客户信息
 function update(){
   customerApi.update(customerInfo.value).then(resp=>{
