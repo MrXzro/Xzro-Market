@@ -21,7 +21,7 @@
             <result column="status" property="status"/>
             <result column="customer_group_id" property="groupId"/>
         </association>
-        <collection property="goods" ofType="good">
+        <collection property="goods" ofType="good" select="selectGoods" column="id">
             <id column="good_id" property="id"/>
             <result column="good_name" property="name"/>
             <result column="img" property="img"/>
@@ -34,8 +34,8 @@
     </resultMap>
 
     <insert id="insert">
-        INSERT INTO `goodmanager`.`orders` (`order_no`, `status`, `paid_price`, `payment_method`, `customer_id`)
-        VALUES (#{orderNo}, #{status}, #{paidPrice}, #{paymentMethod}, #{customerId});
+        INSERT INTO `orders` ( `order_no`, `status`, `paid_price`, `payment_method`, `customer_id`, `start_date`, `end_date`)
+        VALUES (#{orderNo}, #{status}, #{paidPrice}, #{paymentMethod}, #{customerId}, #{startDate}, #{endDate});
     </insert>
     <insert id="insertAssociate">
         INSERT INTO `goodmanager`.`order_good` (`order_id`, `good_id`) VALUES
@@ -43,26 +43,35 @@
             (#{id},#{good})
         </foreach>
     </insert>
-    <update id="update"></update>
-    <delete id="delete">
-        DELETE
-        FROM `orders`
-        WHERE `id` = #{id}
-    </delete>
+    <update id="update">
+        UPDATE `orders` SET `order_no` = #{orderNo}, `status` = #{status}, `paid_price` =  #{paidPrice}, `payment_method` =  #{paymentMethod}, `customer_id` =  #{customerId}, `start_date` =  #{startDate}, `end_date` =  #{endDate} WHERE `id` =  #{id};
+    </update>
+    <update id="delete">
+        UPDATE  `orders` SET `isDelete` = 1 WHERE `id` = #{id}
+    </update>
     <delete id="deleteAssociate">
         DELETE
         FROM `order_good`
         WHERE `id` = #{id}
     </delete>
+    <!--嵌套查询-->
+    <!--父查询-->
     <select id="selectAll" resultMap="orderMap">
-        SELECT o.*, c.*, g.`id` as good_id, g.`name` as good_name, g.*
+        SELECT o.*, c.*
         FROM `orders` o
         LEFT JOIN `customer` c
         ON o.`customer_id` = c.`id`
-        LEFT JOIN `order_good` og
-        ON o.`id` = og.`order_id`
-        LEFT JOIN `goods` g
-        ON g.`id` = og.`good_id`
         WHERE o.`order_no` LIKE CONCAT('%',#{orderNo},'%') AND o.`isDelete` = 0;
+    </select>
+    <!--子查询-->
+    <select id="selectGoods" resultType="good">
+        SELECT * FROM `goods` g LEFT JOIN `order_good` og ON g.`id` = og.`good_id` WHERE og.`order_id` = #{id}
+    </select>
+    <select id="selectById" resultMap="orderMap">
+        SELECT o.*, c.*
+        FROM `orders` o
+        LEFT JOIN `customer` c
+        ON o.`customer_id` = c.`id`
+        WHERE o.`id` = #{id} AND o.`isDelete` = 0;
     </select>
 </mapper>
