@@ -32,17 +32,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public int delete(Integer id) {
-        return customerMapper.deleteById(id);
+    public boolean delete(Integer id) {
+        return customerMapper.deleteById(id)!=0;
     }
 
     @Override
-    public int insert(Customer customer) {
-        return customerMapper.insert(customer);
+    public boolean insert(Customer customer) {
+        return customerMapper.insert(customer)!=0;
     }
 
     @Override
-    public int update(Customer customer) {
-        return customerMapper.update(customer);
+    public boolean update(Customer customer) {
+        return customerMapper.update(customer)!=0;
     }
 }

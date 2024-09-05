@@ -21,13 +21,13 @@ public interface CustomerService {
     //跟据ID查询
     Customer selectById(Integer id);
     //删除客户
-    int delete(Integer id);
+    boolean delete(Integer id);
 
     //新增客户
-    int insert(Customer customer);
+    boolean insert(Customer customer);
 
     //修改客户
-    int update(Customer customer);
+    boolean update(Customer customer);
 
 
 }
