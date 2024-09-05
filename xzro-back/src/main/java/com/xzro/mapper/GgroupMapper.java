@@ -23,6 +23,9 @@ public interface GgroupMapper {
     //删除商品组
     int delete(Integer id);
 
+    //删除分组关联信息
+    int deleteAssociate(Integer id);
+
     //更新商品组
     int update(Ggroup ggroup);
 

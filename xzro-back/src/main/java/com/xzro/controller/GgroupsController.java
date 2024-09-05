@@ -32,20 +32,27 @@ public class GgroupsController {
     }
     //根据ID删除
     @PostMapping("/deleteById")
-    private RespBean delete(Map<String,Object> map) {
+    private RespBean delete(@RequestBody Map<String,Object> map) {
         if (ggroupsService.delete((Integer)map.get("id"))){
             return RespBean.ok("删除成功");
-
         }
         return RespBean.error("删除失败");
     }
 
     //添加商品分组
     @PostMapping("/insertGgroup")
-    private RespBean insertGgroup(Ggroup ggroup) {
+    private RespBean insertGgroup(@RequestBody Ggroup ggroup) {
         if (ggroupsService.insert(ggroup)) {
             return RespBean.ok("添加成功");
         }
         return RespBean.error("添加失败");
+    }
+    //修改商品分组
+    @PostMapping("/updateGgroup")
+    private RespBean updateGgroup(@RequestBody Ggroup ggroup){
+        if (ggroupsService.update(ggroup)){
+            return RespBean.ok("修改成功");
+        }
+        return RespBean.error("修改失败");
     }
 }

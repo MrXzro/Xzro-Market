@@ -10,6 +10,9 @@
     <delete id="delete">
         DELETE FROM `ggroup` WHERE `id` = #{id}
     </delete>
+    <delete id="deleteAssociate">
+        DELETE FROM  `good_group` WHERE `good_group_id` = #{id}
+    </delete>
     <select id="selectAll" resultType="com.xzro.bean.Ggroup">
         SELECT * FROM `ggroup`
     </select>

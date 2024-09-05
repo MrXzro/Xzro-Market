@@ -5,6 +5,7 @@ import com.xzro.mapper.GgroupMapper;
 import com.xzro.service.GgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,8 +28,11 @@ public class GgroupsServiceImpl implements GgroupsService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer id) {
-        return ggroupMapper.delete(id) != 0;
+        ggroupMapper.delete(id);
+        ggroupMapper.deleteAssociate(id);
+        return true;
     }
 
     @Override
