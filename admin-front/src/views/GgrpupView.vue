@@ -132,7 +132,7 @@
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="addDialogShow = false">取消</el-button>
+        <el-button @click="updateDialogShow = false">取消</el-button>
         <el-button type="primary" @click="update()"> 确认 </el-button>
       </div>
     </template>
