@@ -47,16 +47,16 @@ public class CgroupController {
     }
 
     //添加分组
-    @PostMapping("/insert")
-    public RespBean insert(@RequestBody Cgroup cgroup) {
+    @PostMapping("/insertCgroup")
+    public RespBean insertCgroup(@RequestBody Cgroup cgroup) {
         if (cgroupService.insert(cgroup)) {
             return RespBean.ok("添加成功");
         }
         return RespBean.error("添加失败");
     }
     //修改分组
-    @PostMapping("/update")
-    public RespBean update(@RequestBody Cgroup cgroup){
+    @PostMapping("/updateCgroup")
+    public RespBean updateCgroup(@RequestBody Cgroup cgroup){
         if (cgroupService.update(cgroup)) {
             return RespBean.ok("修改成功");
         }

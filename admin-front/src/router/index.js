@@ -5,6 +5,7 @@ import GoodsView from '../views/GoodsView.vue'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import GgrpupView from '@/views/GgrpupView.vue'
 import CustomerView from '@/views/CustomerView.vue'
+import CgrpupView from '@/views/CgrpupView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,6 +26,10 @@ const router = createRouter({
         path:'/customer',
         name:'customer',
         component:CustomerView
+      },{
+        path:'/cgroups',
+        name:'cgroups',
+        component:CgrpupView
       }]
     }
   ]

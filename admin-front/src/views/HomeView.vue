@@ -17,10 +17,10 @@
             <el-sub-menu index="1">
               <template #title>
                 <el-icon><location /></el-icon>
-                <span>用户管理</span>
+                <span>客户管理</span>
               </template>
-                <el-menu-item index="/customer">用户管理</el-menu-item>
-                <!-- <el-menu-item index="">用户组管理</el-menu-item> -->
+                <el-menu-item index="/customer">客户信息</el-menu-item>
+                <el-menu-item index="/cgroups">客户分组</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="2">
               <template #title>
