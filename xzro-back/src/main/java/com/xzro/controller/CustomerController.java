@@ -40,6 +40,29 @@ public class CustomerController {
         }
         return RespBean.error("查询失败");
     }
+    //用户删除接口
+    @PostMapping("/delete")
+    public RespBean delete(@RequestBody Map<String,Object> map){
+        if (customerService.delete((Integer) map.get("id"))) {
+            return RespBean.ok("删除成功");
+        }
+        return RespBean.error("删除失败");
+    }
 
-
+    //新增用户接口
+    @PostMapping("/insertCustomer")
+    public RespBean insert(@RequestBody Customer customer) {
+        if (customerService.insert(customer)) {
+            return RespBean.ok("添加成功");
+        }
+        return RespBean.error("添加失败");
+    }
+    //修改用户接口
+    @PostMapping("/updateCustomer")
+    public RespBean update(@RequestBody Customer customer){
+        if (customerService.update(customer)) {
+            return RespBean.ok("修改成功");
+        }
+        return RespBean.error("修改失败");
+    }
 }
