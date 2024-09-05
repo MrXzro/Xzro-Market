@@ -24,7 +24,10 @@ public class Customer {
     //用户名
     private String username;
     //密码
+
     private String password;
+    //头像
+    private String img;
     //姓名
     private String name;
     //性别

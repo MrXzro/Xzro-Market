@@ -1,5 +1,8 @@
 package com.xzro.controller;
 
+import cn.hutool.crypto.SecureUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xzro.bean.Customer;
 import com.xzro.bean.RespBean;
 import com.xzro.service.CustomerService;
@@ -25,10 +28,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
     //查询所有用户接口
-    @GetMapping("/selectAll")
-    public RespBean selectAll() {
+    @GetMapping("/selectByPage/{currentPage}")
+    public RespBean selectByPage(@PathVariable("currentPage") Integer currentPage) {
+        PageHelper.startPage(currentPage, 10);
         List<Customer> customers = customerService.selectAll();
-        return RespBean.ok("查询成功",customers);
+        PageInfo<Customer> customersInfo = new PageInfo<>(customers);
+        return RespBean.ok("查询成功",customersInfo);
     }
 
     //根据ID查询用户接口
@@ -52,6 +57,7 @@ public class CustomerController {
     //新增用户接口
     @PostMapping("/insertCustomer")
     public RespBean insert(@RequestBody Customer customer) {
+        customer.setPassword(SecureUtil.md5(SecureUtil.md5(customer.getPassword())));
         if (customerService.insert(customer)) {
             return RespBean.ok("添加成功");
         }

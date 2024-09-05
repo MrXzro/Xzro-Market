@@ -5,7 +5,6 @@
     <resultMap id="customerMap" type="customer">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
-        <result column="password" property="password"/>
         <result column="name" property="name"/>
         <result column="gender" property="gender"/>
         <result column="age" property="age"/>
@@ -19,18 +18,24 @@
     </resultMap>
 
     <insert id="insert">
-        INSERT INTO `goodmanager`.`customer` (`username`, `password`, `name`, `age`, `gender`, `phone`, `status`, `customer_group_id`)
-        VALUES (#{username}, #{password}, #{name} , #{age}, #{gender}, #{phone}, #{status}, #{groupId});
+        INSERT INTO `customer` (`username`, `password`, `img`, `name`, `age`, `gender`, `phone`, `status`, `customer_group_id`)
+        VALUES (#{username}, #{password}, #{img}, #{name} , #{age}, #{gender}, #{phone}, #{status}, #{groupId})
     </insert>
     <update id="update">
         UPDATE `customer`
-        SET `username` = #{username}, `password` = #{password}, `name` = #{name}, `age` = #{age}, `gender` = #{gender}, `phone` = #{phone}, `status` = #{status}, `customer_group_id` = #{groupId}
-        WHERE `id` = #{id};
+        <set>
+            `username` = #{username},
+            <if test="password!=null">
+                `password` = #{password},
+            </if>
+            `name` = #{name}, `age` = #{age}, `img` = #{img}, `gender` = #{gender}, `phone` = #{phone}, `status` = #{status}, `customer_group_id` = #{groupId}
+        </set>
+        WHERE `id` = #{id}
     </update>
     <delete id="deleteById">
         DELETE FROM `customer` WHERE = #{id}
     </delete>
-    <select id="selectById" resultType="com.xzro.bean.Customer">
+    <select id="selectById" resultMap="customerMap">
         SELECT c.*, cg.* FROM `customer` c
         LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
         WHERE c.`id` = #{id};
@@ -38,6 +43,6 @@
     <select id="selectAll" resultMap="customerMap">
         SELECT c.*, cg.* FROM `customer` c
         LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
-        WHERE c.name LIKE CONCAT('%', #{name}, '%');
+        WHERE c.`name` LIKE CONCAT('%', #{name}, '%') AND c.`isDelete` = 0
     </select>
 </mapper>
