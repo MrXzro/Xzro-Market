@@ -41,7 +41,7 @@ public class CustomerController {
         return RespBean.error("查询失败");
     }
     //用户删除接口
-    @PostMapping("/delete")
+    @PostMapping("/deleteById")
     public RespBean delete(@RequestBody Map<String,Object> map){
         if (customerService.delete((Integer) map.get("id"))) {
             return RespBean.ok("删除成功");
