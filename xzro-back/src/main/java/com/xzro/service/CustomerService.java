@@ -20,6 +20,9 @@ public interface CustomerService {
 
     //跟据ID查询
     Customer selectById(Integer id);
+
+    //根据分组查询用户
+    List<Customer> selectByGroup(Integer id);
     //删除客户
     boolean delete(Integer id);
 

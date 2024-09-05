@@ -32,6 +32,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> selectByGroup(Integer id) {
+        return customerMapper.selectByGroup(id);
+    }
+
+    @Override
     public boolean delete(Integer id) {
         return customerMapper.deleteById(id)!=0;
     }

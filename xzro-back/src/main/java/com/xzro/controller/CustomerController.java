@@ -45,6 +45,15 @@ public class CustomerController {
         }
         return RespBean.error("查询失败");
     }
+    //根据分组查询用户接口
+    @PostMapping("/selectByGroup/{id}/{currentPage}}")
+    public RespBean selectByGroup(@PathVariable("id") Integer id, @PathVariable("currentPage") Integer currentPage) {
+        PageHelper.startPage(currentPage, 10);
+        List<Customer> customers = customerService.selectByGroup(id);
+        PageInfo<Customer> customerPageInfo = new PageInfo<>(customers);
+        return RespBean.ok("查询成功", customerPageInfo);
+    }
+
     //用户删除接口
     @PostMapping("/deleteById")
     public RespBean delete(@RequestBody Map<String,Object> map){

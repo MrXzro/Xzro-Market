@@ -45,4 +45,9 @@
         LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
         WHERE c.`name` LIKE CONCAT('%', #{name}, '%') AND c.`isDelete` = 0
     </select>
+    <select id="selectByGroup" resultMap="customerMap">
+        SELECT c.*, cg.* FROM `customer` c
+        LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
+        WHERE c.`customer_group_id` = #{id} AND c.`isDelete` = 0
+    </select>
 </mapper>
