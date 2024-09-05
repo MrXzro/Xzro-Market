@@ -32,9 +32,9 @@
         </set>
         WHERE `id` = #{id}
     </update>
-    <delete id="deleteById">
-        DELETE FROM `customer` WHERE = #{id}
-    </delete>
+    <update id="deleteById">
+        UPDATE `customer` SET `isDelete` = 1 WHERE `id` = #{id}
+    </update>
     <select id="selectById" resultMap="customerMap">
         SELECT c.*, cg.* FROM `customer` c
         LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
