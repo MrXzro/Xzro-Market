@@ -8,7 +8,7 @@
       </el-header>
       <el-container>
         <!-- 菜单开始 -->
-        <el-aside width="210px">
+        <el-aside width="190px">
           <el-menu
             default-active="2"
             class="aside-menu"

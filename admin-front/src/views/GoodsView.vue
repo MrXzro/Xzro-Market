@@ -147,8 +147,8 @@
   <!-- 修改商品的对话框结束 -->
   <!-- 添加商品的对话框开始 -->
   <el-dialog v-model="addDialogShow" title="添加商品" width="500">
-    <el-form :model="goodInfo">
-      <el-form-item label="名称" label-width="20%">
+    <el-form :model="goodInfo" >
+      <el-form-item label="名称" label-width="20%" >
         <el-input v-model="goodInfo.name" autocomplete="off" />
       </el-form-item>
       <el-form-item label="成本" label-width="20%">
