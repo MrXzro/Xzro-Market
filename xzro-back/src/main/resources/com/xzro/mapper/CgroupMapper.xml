@@ -11,6 +11,6 @@
         DELETE FROM `ggroup` WHERE `id` = #{id}
     </delete>
     <select id="selectAll" resultType="com.xzro.bean.Cgroup">
-        SELECT * FROM `ggroup`
+        SELECT * FROM `ggroup` WHERE `name` = CONCAT('%',#{name},'%')
     </select>
 </mapper>

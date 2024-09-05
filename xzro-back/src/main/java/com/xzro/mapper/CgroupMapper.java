@@ -17,7 +17,7 @@ public interface CgroupMapper {
     //TODO:软删除分组下成员
     //TODO:批量加入分组
     //查询所有分组
-    List<Cgroup> selectAll();
+    List<Cgroup> selectAll(String name);
     //删除分组(根据ID)
     int delete(Integer id);
 
