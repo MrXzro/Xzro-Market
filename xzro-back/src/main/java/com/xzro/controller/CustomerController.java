@@ -28,8 +28,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
     //查询所有用户接口
-    @GetMapping("/selectByPage/{currentPage}")
-    public RespBean selectByPage(@PathVariable("currentPage") Integer currentPage) {
+    @GetMapping("/selectByPage/{currentPage}/{all}")
+    public RespBean selectByPage(@PathVariable("currentPage") Integer currentPage, @PathVariable("all") Boolean all) {
+        if (all){
+            List<Customer> customers = customerService.selectAll();
+            return RespBean.ok("查询成功",customers);
+        }
         PageHelper.startPage(currentPage, 10);
         List<Customer> customers = customerService.selectAll();
         PageInfo<Customer> customersInfo = new PageInfo<>(customers);
