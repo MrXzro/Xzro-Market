@@ -61,7 +61,7 @@
         FROM `orders` o
         LEFT JOIN `customer` c
         ON o.`customer_id` = c.`id`
-        WHERE o.`order_no` LIKE CONCAT('%',#{orderNo},'%') AND o.`isDelete` = 0;
+        WHERE o.`order_no` LIKE CONCAT('%',#{orderNo},'%') AND o.`isDelete` = 0
     </select>
     <!--子查询-->
     <select id="selectGoods" resultType="good">
