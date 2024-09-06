@@ -35,7 +35,7 @@ public class OrdersServiceImpl implements OrdersService {
     //删除订单
     @Override
     public boolean delete(Integer id) {
-        return ordersMapper.delete(id)!=1;
+        return ordersMapper.delete(id)!=0;
     }
     //更新订单
     @Override

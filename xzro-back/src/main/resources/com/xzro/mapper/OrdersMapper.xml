@@ -10,6 +10,7 @@
         <result column="payment_method" property="paymentMethod"></result>
         <result column="start_date" property="startDate"></result>
         <result column="end_date" property="endDate"></result>
+        <result column="customer_id" property="customerId"></result>
         <association property="customer" javaType="customer">
             <id column="id" property="id"/>
             <result column="username" property="username"/>
@@ -33,7 +34,7 @@
         </collection>
     </resultMap>
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys = "true" keyProperty="id">
         INSERT INTO `orders` ( `order_no`, `status`, `paid_price`, `payment_method`, `customer_id`, `start_date`, `end_date`)
         VALUES (#{orderNo}, #{status}, #{paidPrice}, #{paymentMethod}, #{customerId}, #{startDate}, #{endDate});
     </insert>
@@ -52,7 +53,7 @@
     <delete id="deleteAssociate">
         DELETE
         FROM `order_good`
-        WHERE `id` = #{id}
+        WHERE `order_id` = #{id}
     </delete>
     <!--嵌套查询-->
     <!--父查询-->
