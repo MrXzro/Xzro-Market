@@ -1,10 +1,20 @@
 <template>
-  <el-card style="max-width: 100%">
+  <el-card style="max-width: 100%;height: 99%;">
+
     <template #header>
       <div class="card-header">
         <el-button @click="showAddDialog">新增</el-button>
       </div>
     </template>
+    <el-skeleton
+      style="width: 100%"
+      direction="vertical"
+      alignment="flex-start"
+      :loading="loading"
+      :rows="10"
+      animated
+      class="content-skeleton"
+    >
     <el-table :data="goodsList" style="width: 100%">
       <el-table-column fixed prop="id" label="ID" width="50" />
       <el-table-column
@@ -66,13 +76,15 @@
         </template>
       </el-table-column>
     </el-table>
+  </el-skeleton>
+
     <div style="display: flex; justify-content: center; margin-top: 15px">
       <el-pagination
         layout="prev, pager, next"
         :page-count="allPage"
         :current-page="currentPage"
         @update:current-page="selectByPage"
-        style="margin-top: 15px"
+        
       />
     </div>
     <!-- <template #footer>Footer content</template> -->
@@ -214,8 +226,16 @@
   </el-dialog>
   <!-- 添加商品的对话框结束 -->
   <!--选择分组对话框开始-->
-  <el-dialog v-model="selectGgroupsDialog" title="选择分组" width="600">
-    <el-transfer v-model="selectedGgroup" :data="ggroupsList" />
+  <el-dialog v-model="selectGgroupsDialog" :show-close="false" title="选择分组" width="700">
+    <el-transfer :titles="['未选','已选']" v-model="selectedGgroup" :data="ggroupsList" />
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="cancleSelectDialog">Cancel</el-button>
+        <el-button type="primary" @click="selectGgroupsDialog = false">
+          Confirm
+        </el-button>
+      </div>
+    </template>
   </el-dialog>
   <!--选择对话框结束-->
 </template>
@@ -255,8 +275,17 @@ const selectGgroupsDialog = ref(false);
 const updateDialogShow = ref(false);
 //是否显示添加对话框
 const addDialogShow = ref(false);
+//是否显示骨架屏
+const loading = ref(true)
+//穿梭框缓存
+const cache = ref([])
 
-
+//取消分配分组对话框
+function cancleSelectDialog(){
+  //恢复
+  selectedGgroup.value = cache.value
+  selectGgroupsDialog.value = false
+}
 //显示添加对话框
 function showAddDialog(){
   //重置表单
@@ -282,6 +311,7 @@ function showAddDialog(){
 function showSelectGgroupDialog() {
   selectGgroups();
   selectGgroupsDialog.value = true;
+
 }
 
 //添加商品
@@ -375,6 +405,8 @@ function showUpdateDialog(id) {
     goodInfo.value = resp.data;
     imageUrl.value = "http://localhost:8080/upload/" + resp.data.img;
     selectedGgroup.value = resp.data.ggroups.map((group) => group.id);
+    //备份原商品
+    cache.value = selectedGgroup.value
     console.log(selectedGgroup.value);
     console.log(goodInfo.value);
     updateDialogShow.value = true;
@@ -403,11 +435,16 @@ function beforeAvatarUpload(rawFile) {
 }
 //分页查询
 function selectByPage(current) {
+  // loading.value = true
   goodsApi.selectByPage(current).then((resp) => {
-    goodsList.value = resp.data.list;
-    allPage.value = resp.data.pages;
-    currentPage.value = current;
-    console.log(resp.data);
+    if (resp.code == 10000) {
+      goodsList.value = resp.data.list;
+      allPage.value = resp.data.pages;
+      currentPage.value = current;
+      loading.value = false
+      console.log(resp.data);
+    }
+
   });
 }
 selectByPage(currentPage.value);
