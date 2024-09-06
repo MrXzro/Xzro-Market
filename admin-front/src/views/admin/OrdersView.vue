@@ -1,5 +1,10 @@
 <template>
-  <el-card style="max-width: 100%; height: 99%">
+  <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>订单管理</el-breadcrumb-item>
+    <el-breadcrumb-item>订单信息</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-card style="max-width: 100%">
     <template #header>
       <el-row justify="space-between">
         <el-col :span="6">
@@ -14,7 +19,7 @@
             placeholder="请输入订单号"
             class="input-with-select"
             @input="selectByPage(1)"
-            >
+          >
             <template #prepend>
               <el-select
                 v-model="searchCustomer"
@@ -22,8 +27,8 @@
                 style="width: 115px"
                 @change="selectByPage(1)"
               >
-              <el-option label="全部客户" :value="0" />
-              <template v-for="item in customerList" :key="item.id">
+                <el-option label="全部客户" :value="0" />
+                <template v-for="item in customerList" :key="item.id">
                   <el-option :label="item.name" :value="item.id" />
                 </template>
               </el-select>
@@ -445,18 +450,20 @@ function showUpdateDialog(id) {
 //分页查询
 function selectByPage(current) {
   // loading.value = true
-  ordersApi.selectByPage(current,orderNo.value,searchCustomer.value).then((resp) => {
-    if (resp.code == 10000) {
-      ordersList.value = resp.data.list;
-      allPage.value = resp.data.pages;
-      currentPage.value = current;
-      loading.value = false;
-      console.log(resp.data);
-    }
-  });
+  ordersApi
+    .selectByPage(current, orderNo.value, searchCustomer.value)
+    .then((resp) => {
+      if (resp.code == 10000) {
+        ordersList.value = resp.data.list;
+        allPage.value = resp.data.pages;
+        currentPage.value = current;
+        loading.value = false;
+        console.log(resp.data);
+      }
+    });
 }
 selectByPage(currentPage.value);
-selectAllCustomer()
+selectAllCustomer();
 </script>
 <style scope>
 .el-transfer-panel {

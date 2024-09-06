@@ -1,4 +1,9 @@
 <template>
+    <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>客户管理</el-breadcrumb-item>
+    <el-breadcrumb-item>客户分组</el-breadcrumb-item>
+  </el-breadcrumb>
   <el-row justify="space-evenly">
     <el-col :span="8">
       <el-card style="width: 100%">

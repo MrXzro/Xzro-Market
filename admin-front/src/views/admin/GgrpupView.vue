@@ -1,4 +1,9 @@
 <template>
+    <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>商品管理</el-breadcrumb-item>
+    <el-breadcrumb-item>商品分组</el-breadcrumb-item>
+  </el-breadcrumb>
   <el-row justify="space-evenly">
     <el-col :span="8">
       <el-card style="width: 100%">
@@ -165,18 +170,17 @@ const addDialogShow = ref(false);
 //是否显示修改对话框
 const updateDialogShow = ref(false);
 
-
 //修改分组方法
-function update(){
-    ggroupsApi.update(groupInfo.value).then(resp=>{
-      if (resp.code == 10000) {
+function update() {
+  ggroupsApi.update(groupInfo.value).then((resp) => {
+    if (resp.code == 10000) {
       ElMessage({
         message: resp.msg,
         type: "success",
         duration: 1200,
       });
-      updateDialogShow.value = false
-      selectAll()
+      updateDialogShow.value = false;
+      selectAll();
     } else {
       ElMessage.error({
         message: resp.msg,
@@ -184,14 +188,14 @@ function update(){
         duration: 2000,
       });
     }
-    })
+  });
 }
 //显示修改分组对话框
-function showUpdateDialog(id){
-  ggroupsApi.selectById(id).then(resp=>{
+function showUpdateDialog(id) {
+  ggroupsApi.selectById(id).then((resp) => {
     if (resp.code == 10000) {
-      groupInfo.value = resp.data
-      updateDialogShow.value = true
+      groupInfo.value = resp.data;
+      updateDialogShow.value = true;
     } else {
       ElMessage.error({
         message: resp.msg,
@@ -199,7 +203,7 @@ function showUpdateDialog(id){
         duration: 2000,
       });
     }
-  })
+  });
 }
 //添加分组方法
 function insert() {
@@ -210,8 +214,8 @@ function insert() {
         type: "success",
         duration: 1200,
       });
-      addDialogShow.value = false
-      selectAll()
+      addDialogShow.value = false;
+      selectAll();
     } else {
       ElMessage.error({
         message: resp.msg,

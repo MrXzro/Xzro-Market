@@ -1,4 +1,9 @@
 <template>
+    <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>客户管理</el-breadcrumb-item>
+    <el-breadcrumb-item>客户信息</el-breadcrumb-item>
+  </el-breadcrumb>
   <el-row justify="space-evenly">
     <el-col :span="24">
       <el-card style="width: 100%">
@@ -84,14 +89,7 @@
                   <el-button link type="primary" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button
-                link
-                type="primary"
-                size="small"
-                @click="showGoods(scope.row.id)"
-              >
-                订单
-              </el-button>
+
             </template>
           </el-table-column>
         </el-table>

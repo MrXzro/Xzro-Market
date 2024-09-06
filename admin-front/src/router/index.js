@@ -7,32 +7,42 @@ import GgrpupView from '@/views/admin/GgrpupView.vue'
 import CustomerView from '@/views/admin/CustomerView.vue'
 import CgrpupView from '@/views/admin/CgrpupView.vue'
 import OrdersView from '@/views/admin/OrdersView.vue'
+import CustomerHome from '@/views/user/CustomerHome.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'home',
-      redirect:'/orders',
+      component: CustomerHome,
+      children:[{
+        path:'/shop',
+        name:'shop',
+        component:ShopView
+      }]
+    },
+    {
+      path: '/admin',
+      name: 'admin',
       component: HomeView,
       children:[{
-        path:'/goods',
+        path:'/admin/goods',
         name:'goods',
         component:GoodsView
       },{
-        path:'/ggroups',
+        path:'/admin/ggroups',
         name:'ggroups',
         component:GgrpupView
       },{
-        path:'/customer',
+        path:'/admin/customer',
         name:'customer',
         component:CustomerView
       },{
-        path:'/cgroups',
+        path:'/admin/cgroups',
         name:'cgroups',
         component:CgrpupView
       },{
-        path:'/orders',
+        path:'/admin/orders',
         name:'orders',
         component:OrdersView
       }]

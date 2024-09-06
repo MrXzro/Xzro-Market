@@ -1,5 +1,10 @@
 <template>
-  <el-card style="max-width: 100%; height: 99%">
+    <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>商品管理</el-breadcrumb-item>
+    <el-breadcrumb-item>商品信息</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-card style="max-width: 100%">
     <template #header>
       <el-row justify="space-between">
         <el-col :span="6">
