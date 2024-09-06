@@ -23,7 +23,7 @@ class XzroBackApplicationTests {
    }
    @Test
    public void test2(){
-       ordersMapper.selectAll("").forEach(System.out::println);
+//       ordersMapper.selectAll("").forEach(System.out::println);
    }
 
    @Test

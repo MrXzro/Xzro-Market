@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface OrdersService {
     //查询所有订单
-    List<Order> selectAll();
+    List<Order> selectAll(String name, Integer id);
 
     //根据ID查询订单
     Order selectById(Integer id);

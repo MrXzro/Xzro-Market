@@ -1,4 +1,4 @@
-package com.xzro.controller;
+package com.xzro.controller.admin;
 
 import cn.hutool.crypto.SecureUtil;
 import com.github.pagehelper.PageHelper;
@@ -28,14 +28,14 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
     //查询所有用户接口
-    @GetMapping("/selectByPage/{currentPage}/{all}")
-    public RespBean selectByPage(@PathVariable("currentPage") Integer currentPage, @PathVariable("all") Boolean all) {
+    @GetMapping("/selectByPage")
+    public RespBean selectByPage(Integer currentPage, String name,  Boolean all) {
         if (all){
-            List<Customer> customers = customerService.selectAll();
+            List<Customer> customers = customerService.selectAll(name);
             return RespBean.ok("查询成功",customers);
         }
         PageHelper.startPage(currentPage, 10);
-        List<Customer> customers = customerService.selectAll();
+        List<Customer> customers = customerService.selectAll(name);
         PageInfo<Customer> customersInfo = new PageInfo<>(customers);
         return RespBean.ok("查询成功",customersInfo);
     }

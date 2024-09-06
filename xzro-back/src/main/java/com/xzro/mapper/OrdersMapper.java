@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface OrdersMapper {
     //查询订单（订单号）
-    List<Order> selectAll(String orderNo);
+    List<Order> selectAll(@Param("orderNo") String orderNo, @Param("id") Integer id);
 
     //根据ID查询订单
     Order selectById(Integer id);

@@ -63,6 +63,11 @@
         LEFT JOIN `customer` c
         ON o.`customer_id` = c.`id`
         WHERE o.`order_no` LIKE CONCAT('%',#{orderNo},'%') AND o.`isDelete` = 0
+        <if test="id!=null">
+            <if test="id!=0">
+                AND `customer_id` = #{id}
+            </if>
+        </if>
     </select>
     <!--子查询-->
     <select id="selectGoods" resultType="good">

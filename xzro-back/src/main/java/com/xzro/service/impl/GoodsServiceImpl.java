@@ -24,8 +24,8 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsMapper goodsMapper;
 
     @Override
-    public List<Good> selectAll() {
-        return goodsMapper.selectAll("");
+    public List<Good> selectAll(String name) {
+        return goodsMapper.selectAll(name);
     }
 
     @Override

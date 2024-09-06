@@ -24,8 +24,8 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersMapper ordersMapper;
     //查询所有订单
     @Override
-    public List<Order> selectAll() {
-        return ordersMapper.selectAll("");
+    public List<Order> selectAll(String name, Integer id) {
+        return ordersMapper.selectAll(name,id);
     }
     //根据ID查询订单
     @Override

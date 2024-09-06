@@ -1,10 +1,21 @@
 import service from ".";
 const customerApi = {
-    selectByPage(currentPage){
-        return service.get(`/api/customer/selectByPage/${currentPage}/false`);
+    selectByPage(currentPage,name,all){
+        return service.get(`/api/customer/selectByPage`,{
+            params:{
+                currentPage,
+                name,
+                all,
+            }
+        });
     },
     selectAllCustomer(){
-        return service.get("/api/customer/selectByPage/0/true")
+        return service.get("/api/customer/selectByPage",{
+            params:{
+                name:"",
+                all:true
+            }
+        })
     },
     selectByGroup(id,currentPage) {
         return service.get(`/api/customer/selectByGroup/${id}/${currentPage}`)

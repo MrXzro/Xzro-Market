@@ -1,4 +1,4 @@
-package com.xzro.controller;
+package com.xzro.controller.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
@@ -28,10 +28,10 @@ import java.util.Map;
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;
-    @GetMapping("/selectByPage/{currentPage}")
-    public RespBean selectByPage(@PathVariable("currentPage") Integer currentPage){
+    @GetMapping("/selectByPage")
+    public RespBean selectByPage(Integer currentPage,String name){
         PageHelper.startPage(currentPage, 10);
-        List<Good> goods = goodsService.selectAll();
+        List<Good> goods = goodsService.selectAll(name);
         PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
         return RespBean.ok("", goodPageInfo);
     }
@@ -48,7 +48,7 @@ public class GoodsController {
             PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
             return RespBean.ok("查询成功", goodPageInfo);
         }
-        List<Good> goods = goodsService.selectAll();
+        List<Good> goods = goodsService.selectAll("");
         return RespBean.ok("查询成功", goods);
     }
 

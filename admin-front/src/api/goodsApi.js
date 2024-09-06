@@ -1,7 +1,12 @@
 import service from ".";
 const goodsApi = {
-    selectByPage(currentPage) {
-        return service.get(`/api/goods/selectByPage/${currentPage}`);
+    selectByPage(currentPage,name) {
+        return service.get(`/api/goods/selectByPage`,{
+            params:{
+                currentPage,
+                name
+            }
+        });
     },
     selectById(id) {
         return service.get(`/api/goods/selectById/${id}`)

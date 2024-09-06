@@ -1,4 +1,4 @@
-package com.xzro.controller;
+package com.xzro.controller.admin;
 
 import com.xzro.bean.RespBean;
 import org.springframework.beans.factory.annotation.Value;

@@ -22,8 +22,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerMapper customerMapper;
     @Override
-    public List<Customer> selectAll() {
-        return customerMapper.selectAll("");
+    public List<Customer> selectAll(String name) {
+        return customerMapper.selectAll(name);
     }
 
     @Override

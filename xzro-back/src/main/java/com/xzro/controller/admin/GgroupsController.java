@@ -1,4 +1,4 @@
-package com.xzro.controller;
+package com.xzro.controller.admin;
 
 import com.xzro.bean.Ggroup;
 import com.xzro.bean.RespBean;

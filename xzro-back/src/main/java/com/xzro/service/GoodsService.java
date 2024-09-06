@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface GoodsService {
     //查询所有
-    List<Good> selectAll();
+    List<Good> selectAll(String name);
     //根据名称查询
     List<Good> selectByName(String name);
 

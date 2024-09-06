@@ -16,7 +16,7 @@ import java.util.List;
 public interface CustomerService {
     //TODO:适配根据姓名查询
     //查询全部
-    List<Customer> selectAll();
+    List<Customer> selectAll(String name);
 
     //跟据ID查询
     Customer selectById(Integer id);

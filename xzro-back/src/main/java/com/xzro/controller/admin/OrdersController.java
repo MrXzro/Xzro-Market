@@ -1,4 +1,4 @@
-package com.xzro.controller;
+package com.xzro.controller.admin;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -37,10 +37,10 @@ public class OrdersController {
     private GoodsService goodsService;
 
     //查询所有订单
-    @GetMapping("/selectByPage/{currentPage}")
-    public RespBean selectByPage(@PathVariable("currentPage") Integer currentPage) {
+    @GetMapping("/selectByPage")
+    public RespBean selectByPage(Integer currentPage, String orderNo, Integer id) {
         PageHelper.startPage(currentPage, 10);
-        List<Order> orders = ordersService.selectAll();
+        List<Order> orders = ordersService.selectAll(orderNo, id);
         PageInfo<Order> orderPageInfo = new PageInfo<>(orders);
         return RespBean.ok("查询成功", orderPageInfo);
     }
