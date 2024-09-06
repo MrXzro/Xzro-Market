@@ -6,13 +6,14 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import GgrpupView from '@/views/GgrpupView.vue'
 import CustomerView from '@/views/CustomerView.vue'
 import CgrpupView from '@/views/CgrpupView.vue'
+import OrdersView from '@/views/OrdersView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      redirect:'/customer',
+      redirect:'/orders',
       component: HomeView,
       children:[{
         path:'/goods',
@@ -30,6 +31,10 @@ const router = createRouter({
         path:'/cgroups',
         name:'cgroups',
         component:CgrpupView
+      },{
+        path:'/orders',
+        name:'orders',
+        component:OrdersView
       }]
     }
   ]

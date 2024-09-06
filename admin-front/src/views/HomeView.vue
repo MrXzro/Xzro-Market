@@ -35,7 +35,7 @@
                 <el-icon><location /></el-icon>
                 <span>订单管理</span>
               </template>
-                <!-- <el-menu-item index="1-1">订单信息</el-menu-item> -->
+                <el-menu-item index="/orders">订单信息</el-menu-item>
             </el-sub-menu>
           </el-menu>
         </el-aside>
@@ -45,7 +45,7 @@
             <RouterView />
           </el-main>
           <el-footer
-            style=" border-top: 1px #2a2e3a solid"
+            style=" border-top: 1px #2a2e3a solid;"
             >Footer</el-footer
           >
         </el-container>
@@ -72,7 +72,6 @@ function toPage(indexPath) {
 </script>
 <style scope>
 .aside-menu{
-
   border-right:  1px #2a2e3a solid;
 }
 </style>
