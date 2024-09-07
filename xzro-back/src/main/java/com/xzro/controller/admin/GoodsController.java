@@ -40,16 +40,18 @@ public class GoodsController {
         Good good = goodsService.selectById(id);
         return RespBean.ok("查询成功", good);
     }
-    @GetMapping("/selectByGroup/{id}/{currentPage}")
-    public RespBean selectByGroup(@PathVariable("id") Integer id, @PathVariable("currentPage") Integer currentPage){
+    @GetMapping("/selectByGroup")
+    public RespBean selectByGroup(Integer id, Integer currentPage){
         if (id!=0){
             PageHelper.startPage(currentPage, 10);
             List<Good> goods = goodsService.selectByGroup(id);
             PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
             return RespBean.ok("查询成功", goodPageInfo);
         }
+        PageHelper.startPage(currentPage, 10);
         List<Good> goods = goodsService.selectAll("");
-        return RespBean.ok("查询成功", goods);
+        PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
+        return RespBean.ok("查询成功", goodPageInfo);
     }
 
     @PostMapping("/deleteById")
