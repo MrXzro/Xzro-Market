@@ -309,12 +309,7 @@ const searchCustomer = ref(null);
 //订单号
 const orderNo = ref("");
 
-//获取所有客户
-function selectAllCustomer() {
-  customerApi.selectAllCustomer().then((resp) => {
-    customerList.value = resp.data;
-  });
-}
+
 //取消添加商品对话框
 function cancleSelectDialog() {
   //恢复
@@ -323,7 +318,6 @@ function cancleSelectDialog() {
 }
 //显示添加对话框
 function showAddDialog() {
-  selectAllCustomer();
   //重置表单
   orderInfo.value = {
     id: null,
@@ -431,7 +425,6 @@ function selectGoods() {
 function showUpdateDialog(id) {
   ordersApi.selectById(id).then((resp) => {
     //获取客户列表
-    selectAllCustomer();
     orderInfo.value = resp.data;
     selectedGoods.value = resp.data.goods.map((group) => group.id);
     console.log(selectedGoods.value);
@@ -456,7 +449,6 @@ function selectByPage(current) {
     });
 }
 selectByPage(currentPage.value);
-selectAllCustomer();
 </script>
   <style scope>
 .el-transfer-panel {

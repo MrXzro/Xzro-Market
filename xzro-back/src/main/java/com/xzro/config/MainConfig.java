@@ -1,8 +1,11 @@
 package com.xzro.config;
 
+import com.xzro.controller.user.CustomerLoginController;
+import com.xzro.interceptor.AdminJwtInterceptor;
+import com.xzro.interceptor.PublicJwtInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -15,20 +18,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Create 2024/9/3 9:42
  * @Version 1.0
  */
+
 @Configuration
 public class MainConfig implements WebMvcConfigurer {
     @Value("${xzro.picdir}")
     private String picdir;
-    //    @Override
+//        @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(loginInterceptor).addPathPatterns("/admin/**");
 //    }
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new JwtInterceptor())
-//                .addPathPatterns("/admin/**")
-//                .excludePathPatterns("/adminController/login");
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //管理员拦截
+        registry.addInterceptor(new AdminJwtInterceptor())
+                .addPathPatterns("/api/**")
+                .excludePathPatterns("/admin/login")
+                .excludePathPatterns("/api/orders/selectByPage")
+                .excludePathPatterns("/api/ggroups/selectAll")
+                .excludePathPatterns("/api/goods/selectByGroup")
+                .excludePathPatterns("/customer/login");
+        registry.addInterceptor(new PublicJwtInterceptor())
+                .addPathPatterns("/api/orders/selectByPage")
+                .addPathPatterns("/api/ggroups/selectAll")
+                .addPathPatterns("/api/orders/selectByPage");
+    }
 
 
     @Override

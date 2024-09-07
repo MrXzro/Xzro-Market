@@ -36,8 +36,10 @@ public class CustomerLoginController {
         Customer customer = customerLoginService.customerLogin(username);
         if (customer != null) {
             if (customer.getPassword().equals(password)) {
+                Integer id = customer.getId();
                 Map<String, Object> map = new HashMap<>();
                 map.put("usernasme", username);
+                map.put("id", id);
                 String token = JwtUtils.generateJwt(map);
                 return RespBean.ok("登录成功", token);
             }

@@ -11,18 +11,19 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * ClassName: JwtInterceptor
  * Package: com.xzro.interceptor
  * Description:
- *
+ * 管理员放行
  * @Author Xzro
  * @Create 2024/9/2 17:48
  * @Version 1.0
  */
 @Component
-public class JwtInterceptor implements HandlerInterceptor {
+public class AdminJwtInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //对OPTIONS请求放行，不然会出现跨域问题
@@ -34,9 +35,12 @@ public class JwtInterceptor implements HandlerInterceptor {
         RespBean respBean = null;
         try {
             //解析JWT，如果出现问题会抛出异常
-            JwtUtils.parseJwtToMap(token);
+            Map<String, Object> stringObjectMap = JwtUtils.parseJwtToMap(token);
             if (JwtUtils.verifyJwt(token)){
-                return true;
+                //判断管理员权限
+                if ("admin".equals(stringObjectMap.get("isAdmin"))) {
+                    return true;
+                }
             }
             respBean = RespBean.error("令牌无效");
         } catch (SignatureVerificationException e) {

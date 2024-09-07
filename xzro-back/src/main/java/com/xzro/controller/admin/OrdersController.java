@@ -2,6 +2,9 @@ package com.xzro.controller.admin;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -9,9 +12,11 @@ import com.xzro.bean.Order;
 import com.xzro.bean.RespBean;
 import com.xzro.service.GoodsService;
 import com.xzro.service.OrdersService;
+import com.xzro.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,9 +43,31 @@ public class OrdersController {
 
     //查询所有订单
     @GetMapping("/selectByPage")
-    public RespBean selectByPage(Integer currentPage, String orderNo, Integer id) {
+    public RespBean selectByPage(Integer currentPage, String orderNo, Integer id, HttpServletRequest request) {
+
+        //获取token
+        String token = request.getHeader("token");
         PageHelper.startPage(currentPage, 10);
-        List<Order> orders = ordersService.selectAll(orderNo, id);
+        Integer customerId = id;
+        try {
+
+            //解析JWT，如果出现问题会抛出异常
+            Map<String, Object> stringObjectMap = JwtUtils.parseJwtToMap(token);
+            if (JwtUtils.verifyJwt(token)){
+                System.out.println("11111111111111111");
+                System.out.println(stringObjectMap.get("id").getClass());
+                System.out.println("11111111111111111");
+
+                //判断管理员权限
+                if (!"admin".equals(stringObjectMap.get("isAdmin"))) {
+                    customerId = (Integer) stringObjectMap.get("id");
+                }
+            }
+        } catch (Exception e) {
+
+            return RespBean.error("令牌无效");
+        }
+        List<Order> orders = ordersService.selectAll(orderNo, customerId);
         PageInfo<Order> orderPageInfo = new PageInfo<>(orders);
         return RespBean.ok("查询成功", orderPageInfo);
     }
