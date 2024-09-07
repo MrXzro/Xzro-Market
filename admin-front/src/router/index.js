@@ -10,6 +10,7 @@ import OrdersView from '@/views/admin/OrdersView.vue'
 import CustomerHome from '@/views/user/CustomerHome.vue'
 import ShopView from '@/views/user/ShopView.vue'
 import CustomerOrdersView from '@/views/user/CustomerOrdersView.vue'
+import CustomerLoginView from '@/views/user/CustomerLoginView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,7 +25,7 @@ const router = createRouter({
         component:ShopView
       },{
         path:"/order",
-        name:"",
+        name:"customerOrder",
         component:CustomerOrdersView
       }]
     },
@@ -53,6 +54,10 @@ const router = createRouter({
         name:'orders',
         component:OrdersView
       }]
+    },{
+      path:"/login",
+      name:"custoemrLogin",
+      component:CustomerLoginView
     }
   ]
 })
