@@ -21,7 +21,7 @@
             <template #title>我的</template>
             <el-menu-item index="/order">订单</el-menu-item>
           </el-sub-menu>
-          <el-menu-item index="4">退出登录</el-menu-item>
+          <el-menu-item @click="logout">退出登录</el-menu-item>
         </el-menu>
       </el-header>
       <el-main>
@@ -65,6 +65,8 @@ import { RouterView } from "vue-router";
 import router from "@/router";
 import { ref } from "vue";
 import { useCartStore } from "@/stores/cart";
+import userApi from "@/api/userApi";
+import { ElMessage } from "element-plus";
 
 const activeIndex = ref("/shop");
 const cart = useCartStore();
@@ -74,7 +76,28 @@ function toPage(indexPath) {
   //编程式导航
   router.push(indexPath);
 }
+function logout(){
+  userApi.logout().then(resp=>{
+    if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 1200,
+        onClose: function () {
+          sessionStorage.removeItem("token", resp.data);
+          router.push("/login");
+        },
+      });
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
 
+  })
+}
 function handleBeforeEnter() {
   document.body.style.overflow = "hidden"; // 进入动画前隐藏滚动条
 }

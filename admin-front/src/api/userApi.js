@@ -11,6 +11,10 @@ const userApi = {
     },
     update(order, goods) {
         return service.post("/api/orders/updateOrder",  {  order,  goods })
+    },login(username,password){
+        return service.post("/customer/login",{username,password})
+    },logout(){
+        return service.post("/customer/logout")
     }
 
 }

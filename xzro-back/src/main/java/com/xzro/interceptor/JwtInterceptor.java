@@ -35,7 +35,10 @@ public class JwtInterceptor implements HandlerInterceptor {
         try {
             //解析JWT，如果出现问题会抛出异常
             JwtUtils.parseJwtToMap(token);
-            return true;
+            if (JwtUtils.verifyJwt(token)){
+                return true;
+            }
+            respBean = RespBean.error("令牌无效");
         } catch (SignatureVerificationException e) {
             respBean = RespBean.error("无效签名");
         } catch (TokenExpiredException e) {
