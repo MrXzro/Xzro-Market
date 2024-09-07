@@ -19,7 +19,7 @@
           <el-menu-item index="/shop">下单</el-menu-item>
           <el-sub-menu index="2">
             <template #title>我的</template>
-            <el-menu-item index="2-1">订单</el-menu-item>
+            <el-menu-item index="/order">订单</el-menu-item>
           </el-sub-menu>
           <el-menu-item index="4">退出登录</el-menu-item>
         </el-menu>

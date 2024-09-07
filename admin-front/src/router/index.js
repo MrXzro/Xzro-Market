@@ -9,6 +9,7 @@ import CgrpupView from '@/views/admin/CgrpupView.vue'
 import OrdersView from '@/views/admin/OrdersView.vue'
 import CustomerHome from '@/views/user/CustomerHome.vue'
 import ShopView from '@/views/user/ShopView.vue'
+import CustomerOrdersView from '@/views/user/CustomerOrdersView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,7 +24,8 @@ const router = createRouter({
         component:ShopView
       },{
         path:"/order",
-        
+        name:"",
+        component:CustomerOrdersView
       }]
     },
     {
