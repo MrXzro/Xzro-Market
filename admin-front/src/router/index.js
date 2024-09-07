@@ -81,7 +81,7 @@ router.beforeEach((to, from) => {
       //获取token
       let token = sessionStorage.getItem('token');
       if(token == null) { //如果token不存在去登录页
-        if(to.path.search("/admin/")==0){
+        if(to.path.search("/admin")==0){
           return "/admin/login"
         }
         return "/login"

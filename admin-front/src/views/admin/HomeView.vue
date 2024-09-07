@@ -64,7 +64,13 @@
           </el-main>
           <el-footer
             style=" border-top: 1px #2a2e3a solid;"
-            >Footer</el-footer
+            >
+            <el-row justify="center" style="margin: 15px;">
+              <el-col :span="3">
+                <el-link href="https://www.xzro.com" target="_blank">©2024 - 2024 By XZRO</el-link>
+              </el-col>
+            </el-row>
+            </el-footer
           >
         </el-container>
       </el-container>
@@ -92,7 +98,7 @@ function logout(){
         duration: 1200,
         onClose: function () {
           sessionStorage.removeItem("token", resp.data);
-          router.push("/login");
+          router.push("/admin/login");
         },
       });
     } else {
