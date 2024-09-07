@@ -8,17 +8,22 @@ import CustomerView from '@/views/admin/CustomerView.vue'
 import CgrpupView from '@/views/admin/CgrpupView.vue'
 import OrdersView from '@/views/admin/OrdersView.vue'
 import CustomerHome from '@/views/user/CustomerHome.vue'
+import ShopView from '@/views/user/ShopView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/index',
       name: 'home',
+      redirect:'/shop',
       component: CustomerHome,
       children:[{
         path:'/shop',
         name:'shop',
         component:ShopView
+      },{
+        path:"/order",
+        
       }]
     },
     {

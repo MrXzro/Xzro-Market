@@ -14,7 +14,6 @@
         <association property="customer" javaType="customer">
             <id column="id" property="id"/>
             <result column="username" property="username"/>
-            <result column="password" property="password"/>
             <result column="name" property="name"/>
             <result column="gender" property="gender"/>
             <result column="age" property="age"/>
