@@ -5,7 +5,7 @@
       <el-main class="centered-login">
         <div>
           <el-row style="margin-bottom: 20px">
-            <h1>登录您的帐户</h1>
+            <h1>后台管理系统</h1>
           </el-row>
           <el-row style="margin-bottom: 20px">
             <span>欢迎回来，请登录您的账户。</span>
@@ -38,16 +38,16 @@
 </template>
   
   <script setup>
-import userApi from "@/api/userApi";
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import router from "@/router";
+import adminApi from "@/api/adminApi";
 
 const username = ref("");
 const password = ref("");
 //登录
 function login() {
-  userApi.login(username.value, password.value).then((resp) => {
+  adminApi.login(username.value, password.value).then((resp) => {
     if (resp.code == 10000) {
       ElMessage({
         message: resp.msg,
@@ -55,7 +55,7 @@ function login() {
         duration: 1200,
         onClose: function () {
           sessionStorage.setItem("token", resp.data);
-          router.push("/shop");
+          router.push("/admin/index");
         },
       });
     } else {

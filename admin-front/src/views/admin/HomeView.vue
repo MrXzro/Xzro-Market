@@ -4,6 +4,24 @@
       <el-header
         style="border-bottom: 1px #2a2e3a solid;padding: 0px;"
       >
+      <el-header style="padding: 0px">
+        <el-menu
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
+          :ellipsis="false"
+          @select="toPage"
+        >
+          <el-menu-item index="0">
+            <img
+              style="width: 100px"
+              src="/src/assets/logo.png"
+              alt="Element logo"
+            />
+          </el-menu-item>
+          <el-menu-item @click="logout">退出登录</el-menu-item>
+        </el-menu>
+      </el-header>
       </el-header>
       <el-container>
         <!-- 菜单开始 -->
@@ -13,9 +31,10 @@
             class="aside-menu"
             @select="toPage"
           >
+          <el-menu-item index="/admin/index"><el-icon><House /></el-icon>首页</el-menu-item>
             <el-sub-menu index="1">
               <template #title>
-                <el-icon><location /></el-icon>
+                <el-icon><User /></el-icon>
                 <span>客户管理</span>
               </template>
                 <el-menu-item index="/admin/customer">客户信息</el-menu-item>
@@ -23,7 +42,7 @@
             </el-sub-menu>
             <el-sub-menu index="2">
               <template #title>
-                <el-icon><location /></el-icon>
+                <el-icon><Goods /></el-icon>
                 <span>商品管理</span>
               </template>
                 <el-menu-item index="/admin/goods">商品信息</el-menu-item>
@@ -31,7 +50,7 @@
             </el-sub-menu>
             <el-sub-menu index="3">
               <template #title>
-                <el-icon><location /></el-icon>
+                <el-icon><Tickets /></el-icon>
                 <span>订单管理</span>
               </template>
                 <el-menu-item index="/admin/orders">订单信息</el-menu-item>
@@ -62,8 +81,30 @@ import {
 } from '@element-plus/icons-vue'
 import { RouterView } from 'vue-router';
 import router from '@/router'
+import adminApi from '@/api/adminApi';
+import { ElMessage } from 'element-plus';
+function logout(){
+  adminApi.logout().then(resp=>{
+    if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 1200,
+        onClose: function () {
+          sessionStorage.removeItem("token", resp.data);
+          router.push("/login");
+        },
+      });
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
 
-
+  })
+}
 function toPage(indexPath) {
   //编程式导航
   router.push(indexPath)
