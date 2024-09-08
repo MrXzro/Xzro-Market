@@ -78,7 +78,8 @@
                   link
                   type="primary"
                   size="small"
-                  @click="showUpdateDialog(scope.row.id)"
+                  :disabled="scope.row.status == 1"
+                  @click="payOrder(scope.row.id)"
                 >
                   支付
                 </el-button>
@@ -269,6 +270,7 @@ import { ElMessage, ElSkeleton } from "element-plus";
 import ordersApi from "@/api/oredersApi";
 import customerApi from "@/api/customerApi";
 import { Search } from "@element-plus/icons-vue";
+import userApi from "@/api/userApi";
 //商品列表
 const ordersList = ref([]);
 //商品更新表信息
@@ -310,6 +312,25 @@ const searchCustomer = ref(null);
 const orderNo = ref("");
 
 
+//支付订单
+function payOrder(orderId){
+  userApi.payOrder(orderId).then(resp=>{
+    if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 1200,
+      });
+      selectByPage(allPage.value);
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
+  })
+}
 //取消添加商品对话框
 function cancleSelectDialog() {
   //恢复

@@ -8,7 +8,12 @@
       >
         <el-carousel-item v-for="item in 4" :key="item">
           <h3 text="2xl" justify="center">
-            <img height="100%" width="100%" :src="'http://img-api.xzro.com/biying.php?'+item" alt="">
+            <img
+              height="100%"
+              width="100%"
+              :src="'http://img-api.xzro.com/biying.php?' + item"
+              alt=""
+            />
           </h3>
         </el-carousel-item>
       </el-carousel>
@@ -196,13 +201,32 @@
       </el-tabs>
     </el-col>
   </el-row>
+  <el-dialog v-model="cart.ifShowAddOrderDialog" title="提交订单" width="500">
+    <el-form :model="orderInfo" ref="submitFromRef" style="margin-top: 30px">
+      <el-form-item :rules="rules" prop="paymentMethod" label="付款方式" label-width="20%">
+        <el-input
+          v-model="orderInfo.paymentMethod"
+          autocomplete="off"
+          placeholder="请输入支付方式"
+        />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="cart.ifShowAddOrderDialog = false">取消</el-button>
+        <el-button type="primary" @click="submitOrder()"> 确认 </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 <script setup>
 import { ElCarousel, ElCarouselItem, ElMessage } from "element-plus";
 import { useCartStore } from "@/stores/cart";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import ggroupsApi from "@/api/ggroupsApi";
 import goodsApi from "@/api/goodsApi";
+import userApi from "@/api/userApi";
+import router from "@/router";
 
 const cart = useCartStore();
 
@@ -218,8 +242,38 @@ const goodsList = ref([]);
 const groupId = ref(0);
 //激活的选项卡(name)
 const activeName = ref();
+//订单信息
+const orderInfo = ref({
+  paymentMethod: null,
+});
 
-//将选择的
+
+
+//提交订单
+function submitOrder() {
+  //取回选中的商品
+  orderInfo.value.goods = cart.cart;
+  userApi.insertOrder(orderInfo.value.paymentMethod, cart.cart).then((resp) => {
+    if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 1200,
+        onClose: () => {
+          router.push("/order");
+          cart.cart = []
+        },
+      });
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
+  });
+}
+//保存选择的商品
 function selectGoods(selection) {
   cart.cart = selection.map((item) => item.id);
   // 计算 price 之和
@@ -245,11 +299,6 @@ function selectGoodsByGroup(current) {
   if (groupId.value != 0) {
     goodsApi.selectByGroup(groupId.value, currentPage.value).then((resp) => {
       if (resp.code == 10000) {
-        // ElMessage({
-        //   message: resp.msg,
-        //   type: "success",
-        //   duration: 1200,
-        // });
         allPage.value = resp.data.pages;
         goodsList.value = resp.data.list;
         currentPage.value = current;
@@ -264,7 +313,6 @@ function selectGoodsByGroup(current) {
   } else {
     goodsApi.selectByGroup(groupId.value, currentPage.value).then((resp) => {
       if (resp.code == 10000) {
-
         allPage.value = resp.data.pages;
         goodsList.value = resp.data.list;
         currentPage.value = current;

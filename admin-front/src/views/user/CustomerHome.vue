@@ -9,7 +9,7 @@
           :ellipsis="false"
           @select="toPage"
         >
-          <el-menu-item index="0">
+          <el-menu-item index="/shop">
             <img
               style="width: 100px"
               src="/src/assets/logo.png"
@@ -45,7 +45,7 @@
             </div>
           </el-col>
           <el-col :span="1">
-            <el-button type="primary" plain size="large">提交订单</el-button>
+            <el-button type="primary" plain size="large" @click="showAddOrderDialog">提交订单</el-button>
           </el-col>
         </el-row>
         </el-footer>
@@ -72,6 +72,11 @@ const activeIndex = ref("/shop");
 const cart = useCartStore();
 console.log(cart.ifShowCheckButton);
 
+
+//显示提交订单对话框
+function showAddOrderDialog(){
+  cart.ifShowAddOrderDialog = true
+}
 function toPage(indexPath) {
   //编程式导航
   router.push(indexPath);

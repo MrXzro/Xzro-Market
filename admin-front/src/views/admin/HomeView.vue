@@ -12,7 +12,7 @@
           :ellipsis="false"
           @select="toPage"
         >
-          <el-menu-item index="0">
+          <el-menu-item index="/index">
             <img
               style="width: 100px"
               src="/src/assets/logo.png"

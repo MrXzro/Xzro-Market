@@ -67,6 +67,7 @@
                 AND `customer_id` = #{id}
             </if>
         </if>
+        ORDER BY o.`id` DESC
     </select>
     <!--子查询-->
     <select id="selectGoods" resultType="good">

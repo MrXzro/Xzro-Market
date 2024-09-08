@@ -28,4 +28,5 @@ public interface OrdersService {
 
     //添加订单
     boolean insert(Order order, Integer[] goods);
+
 }

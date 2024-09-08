@@ -1,13 +1,19 @@
 package com.xzro;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUtil;
 import com.xzro.mapper.CustomerMapper;
 import com.xzro.mapper.GoodsMapper;
 import com.xzro.mapper.OrdersMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @SpringBootTest
 class XzroBackApplicationTests {
@@ -34,6 +40,14 @@ class XzroBackApplicationTests {
        }
        System.out.println(sum);
 
+   }
+   @Test
+   public void test4(){
+       Date startDate = DateUtil.date();
+       //生成订单结束时间
+       Date endDate = DateUtil.offset(startDate, DateField.MINUTE, 30);
+       System.out.println(startDate);
+       System.out.println(endDate);
    }
 
 }

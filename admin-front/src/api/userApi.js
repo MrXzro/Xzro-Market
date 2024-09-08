@@ -15,6 +15,11 @@ const userApi = {
         return service.post("/customer/login",{username,password})
     },logout(){
         return service.post("/customer/logout")
+    },
+    insertOrder(paymentMethod, goods) {
+        return service.post("/api/orders/userInsertOrder",{  paymentMethod,  goods })
+    },payOrder(orderId){
+        return service.post("/api/orders/userPay",{  orderId })
     }
 
 }
