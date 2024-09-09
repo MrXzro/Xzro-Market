@@ -16,6 +16,7 @@
               alt="Element logo"
             />
           </el-menu-item>
+          <el-menu-item disabled style="color: white;">你好，{{ username }}</el-menu-item>
           <el-menu-item index="/shop">下单</el-menu-item>
           <el-sub-menu index="2">
             <template #title>我的</template>
@@ -38,7 +39,8 @@
           height="80px"
           style="border-top: 1.5px solid rgb(65, 66, 67); width: 20"
         >
-        <el-row justify="end" style="padding-top: 20px;padding-right: 20px;">
+        <el-row justify="end" style="padding-top: 20px;padding-right: 50px;">
+
           <el-col :span="2">
             <div style="margin-top: 5px;">
               <h3>总计:{{ cart.totalPrice }}</h3>
@@ -70,8 +72,18 @@ import { ElMessage } from "element-plus";
 
 const activeIndex = ref("/shop");
 const cart = useCartStore();
-console.log(cart.ifShowCheckButton);
-
+const username = ref("")
+function getUsername(){
+  let token = sessionStorage.getItem("token")
+  // 拆分JWT，取出第二部分（Payload）
+  const base64Payload = token.split('.')[1];
+  // Base64 解码（处理 Base64 URL 编码）
+  const payload = JSON.parse(atob(base64Payload.replace(/-/g, '+').replace(/_/g, '/')));
+  // 输出解码后的结果
+  console.log(payload.payload);
+  username.value = payload.payload.username
+  console.log(payload.payload.username)
+}
 
 //显示提交订单对话框
 function showAddOrderDialog(){
@@ -115,6 +127,7 @@ function handleBeforeLeave() {
 function handleAfterLeave() {
   document.body.style.overflow = ""; // 动画结束后恢复正常
 }
+getUsername()
 </script>
 <style scope>
 .el-carousel__item h3 {
