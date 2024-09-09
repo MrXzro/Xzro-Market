@@ -154,6 +154,7 @@
           class="avatar-uploader"
           action="http://localhost:8080/api/upload"
           name="pic"
+          :headers="headers"
           :value="goodInfo.img"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
@@ -222,6 +223,7 @@
           class="avatar-uploader"
           action="http://localhost:8080/api/upload"
           name="pic"
+          :headers="headers"
           :value="goodInfo.img"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
@@ -265,7 +267,7 @@
 </template>
 <script setup>
 import goodsApi from "@/api/goodsApi";
-import { ref } from "vue";
+import { ref , computed } from "vue";
 import { ElMessage } from "element-plus";
 import ggroupsApi from "@/api/ggroupsApi";
 //商品列表
@@ -305,7 +307,11 @@ const loading = ref(true);
 const cache = ref([]);
 //搜索名
 const name = ref("")
-
+//设置请求头
+const headers = computed(() => {
+  let token = sessionStorage.getItem("token");
+  return { token }
+})
 //取消分配分组对话框
 function cancleSelectDialog() {
   //恢复
