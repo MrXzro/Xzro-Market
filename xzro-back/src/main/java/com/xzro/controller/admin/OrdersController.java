@@ -156,7 +156,6 @@ public class OrdersController {
         String token = request.getHeader("token");
         Integer customerId = null;
         try {
-
             //解析JWT，如果出现问题会抛出异常
             Map<String, Object> stringObjectMap = JwtUtils.parseJwtToMap(token);
             if (JwtUtils.verifyJwt(token)){
@@ -241,6 +240,7 @@ public class OrdersController {
     @PostMapping("/userPay")
     public RespBean userPay(@RequestBody Map<String,Object> map, HttpServletRequest request) {
         Integer orderId = (Integer) map.get("orderId");
+        System.out.println("1111111111111111111111");
         //获取订单
         Order order = ordersService.selectById(orderId);
         if (order == null) {
