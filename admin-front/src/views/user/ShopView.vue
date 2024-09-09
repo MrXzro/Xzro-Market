@@ -263,8 +263,9 @@ function submitOrder() {
         type: "success",
         duration: 1200,
         onClose: () => {
+          cart.cart = []
+          cart.ifShowAddOrderDialog = false
           router.push("/order");
-          cart.cart.value = []
         },
       });
     } else {

@@ -200,7 +200,7 @@ public class OrdersController {
         Integer[] goods = list.toArray(new Integer[0]);
         //获取付款方式
         String paymentMethod = (String) map.get("paymentMethod");
-        if ("".equals(paymentMethod)) {
+        if (paymentMethod==null) {
             return RespBean.error("付款方式不能为空");
         }
         order.setPaymentMethod(paymentMethod);
