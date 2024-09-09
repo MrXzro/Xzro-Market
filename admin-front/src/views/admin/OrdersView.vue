@@ -9,8 +9,6 @@
       <el-row justify="space-between">
         <el-col :span="6">
           <el-button @click="showAddDialog">新增</el-button>
-          <el-button @click="showAddDialog">导出</el-button>
-          <el-button @click="showAddDialog">导入</el-button>
         </el-col>
         <el-col :span="6">
           <el-input

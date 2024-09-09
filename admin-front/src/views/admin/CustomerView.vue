@@ -11,6 +11,8 @@
           <el-row justify="space-between">
             <el-col :span="6">
               <el-button @click="showAddDialog">新增</el-button>
+              <el-button @click="downloadExcel">导出</el-button>
+              <el-button @click="showAddDialog">导入</el-button>
             </el-col>
             <el-col :span="6">
               <el-input
@@ -403,6 +405,17 @@ function selectByPage(current) {
       console.log(resp.data.pages);
       CustomerList.value = resp.data.list;
       allPage.value = resp.data.pages;
+    });
+}
+function downloadExcel(){
+  customerApi.download().then(resp => {
+      let blob = new Blob([resp], { type: 'application/xlsx' })
+      let url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url;
+      link.download = '客户表.xlsx'
+      link.click()
+      URL.revokeObjectURL(url);
     });
 }
 getAllGroup();

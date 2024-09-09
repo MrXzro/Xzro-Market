@@ -31,6 +31,10 @@ const customerApi = {
     },
     update(data){
         return service.post("/api/customer/updateCustomer",data)
+    },download(){
+        return service.get("/api/excel/download",{
+            responseType:"blob"
+        })
     }
 
 }
