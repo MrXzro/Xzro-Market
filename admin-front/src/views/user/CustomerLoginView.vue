@@ -1,7 +1,6 @@
 <template>
   <div class="common-layout-login">
     <el-container>
-      <!-- <el-header>Header</el-header> -->
       <el-main class="centered-login">
         <div>
           <el-row style="margin-bottom: 20px">
@@ -32,12 +31,11 @@
           </el-row>
         </div>
       </el-main>
-      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </div>
 </template>
-  
-  <script setup>
+
+<script setup>
 import userApi from "@/api/userApi";
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
@@ -45,8 +43,25 @@ import router from "@/router";
 
 const username = ref("");
 const password = ref("");
-//登录
+
+// 校验函数
+function validateInputs() {
+  if (!username.value) {
+    ElMessage.error("账号不能为空");
+    return false;
+  }
+  if (!password.value ) {
+    ElMessage.error("密码不能为空");
+    return false;
+  }
+  return true;
+}
+
+// 登录函数
 function login() {
+  if (!validateInputs()) {
+    return; // 校验失败，终止登录操作
+  }
   userApi.login(username.value, password.value).then((resp) => {
     if (resp.code == 10000) {
       ElMessage({
@@ -68,14 +83,14 @@ function login() {
   });
 }
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .common-layout-login {
-  height: 100vh; /* 全屏高度 */
+  height: 100vh;
   display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-  transform: translateY(-50px); /* 控制偏移量，向上偏移50px */
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50px);
 }
 
 .centered-login {
@@ -85,4 +100,3 @@ function login() {
   align-items: center;
 }
 </style>
-  

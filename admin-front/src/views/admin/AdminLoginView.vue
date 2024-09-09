@@ -32,12 +32,11 @@
           </el-row>
         </div>
       </el-main>
-      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </div>
 </template>
-  
-  <script setup>
+
+<script setup>
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import router from "@/router";
@@ -45,8 +44,25 @@ import adminApi from "@/api/adminApi";
 
 const username = ref("");
 const password = ref("");
-//登录
+
+// 参数校验函数
+function validateInputs() {
+  if (!username.value ) {
+    ElMessage.error("账号不能为空");
+    return false;
+  }
+  if (!password.value ) {
+    ElMessage.error("密码不能为空");
+    return false;
+  }
+  return true;
+}
+
+// 登录函数
 function login() {
+  if (!validateInputs()) {
+    return; // 校验失败，终止登录操作
+  }
   adminApi.login(username.value, password.value).then((resp) => {
     if (resp.code == 10000) {
       ElMessage({
@@ -68,8 +84,8 @@ function login() {
   });
 }
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .common-layout-login {
   height: 100vh; /* 全屏高度 */
   display: flex;
@@ -85,4 +101,3 @@ function login() {
   align-items: center;
 }
 </style>
-  
