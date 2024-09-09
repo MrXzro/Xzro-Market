@@ -19,7 +19,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class Cgroup {
     //用户组ID
     private Integer id;

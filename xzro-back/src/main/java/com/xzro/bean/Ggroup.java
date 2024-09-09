@@ -20,7 +20,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class Ggroup {
     //商品组ID
     private Integer id;

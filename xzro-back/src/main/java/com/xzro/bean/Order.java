@@ -29,7 +29,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ExcelIgnoreUnannotated
-@Validated
 public class Order {
     //订单ID
     private Integer id;

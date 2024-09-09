@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class Admin {
     //管理员ID
     private Integer id;

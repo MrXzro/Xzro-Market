@@ -21,7 +21,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class Good {
     //商品ID
     private Integer id;
