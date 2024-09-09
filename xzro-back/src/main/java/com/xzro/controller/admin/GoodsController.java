@@ -48,10 +48,8 @@ public class GoodsController {
             PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
             return RespBean.ok("查询成功", goodPageInfo);
         }
-        PageHelper.startPage(currentPage, 10);
         List<Good> goods = goodsService.selectAll("");
-        PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
-        return RespBean.ok("查询成功", goodPageInfo);
+        return RespBean.ok("查询成功", goods);
     }
 
     @PostMapping("/deleteById")

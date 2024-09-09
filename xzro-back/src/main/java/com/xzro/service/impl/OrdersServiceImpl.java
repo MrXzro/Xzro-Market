@@ -87,6 +87,8 @@ public class OrdersServiceImpl implements OrdersService {
                 //库存操作
                 //修改库存
                 getGood.setStock(getGood.getStock() - 1);
+                //增加销量
+                getGood.setSalesVolume(getGood.getSalesVolume() + 1);
                 goodsService.update(getGood, goodList);
 
 

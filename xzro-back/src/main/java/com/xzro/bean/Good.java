@@ -20,7 +20,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ExcelIgnoreUnannotated
 public class Good {
     //商品ID
     private Integer id;

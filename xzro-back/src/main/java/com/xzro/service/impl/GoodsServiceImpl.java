@@ -65,6 +65,10 @@ public class GoodsServiceImpl implements GoodsService {
         return true;
     }
 
+    public Good selectById(Integer id) {
+        return goodsMapper.selectById(id);
+    }
+
     @Override
     public List<Good> selectGoodsSelas() {
         return goodsMapper.selectGoodsSelas();
@@ -73,9 +77,5 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<Good> selectGoodsStock() {
         return goodsMapper.selectGoodsStock();
-    }
-
-    public Good selectById(Integer id) {
-        return goodsMapper.selectById(id);
     }
 }
