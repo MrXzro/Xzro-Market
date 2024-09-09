@@ -6,6 +6,7 @@ import com.xzro.bean.RespBean;
 import com.xzro.service.CustomerLoginService;
 import com.xzro.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,6 @@ import java.util.Map;
 public class CustomerLoginController {
     @Autowired
     private CustomerLoginService customerLoginService;
-
     @PostMapping("/login")
     public RespBean customerLogin(@RequestBody Map<String, Object> userDate) {
         String username = (String) userDate.get("username");

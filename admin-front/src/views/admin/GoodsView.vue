@@ -108,25 +108,26 @@
   <el-dialog v-model="updateDialogShow" title="修改商品" width="500">
     <el-form :model="goodInfo">
       <el-form-item label="名称" label-width="20%">
-        <el-input v-model="goodInfo.name" autocomplete="off" />
+        <el-input v-model="goodInfo.name" autocomplete="off" placeholder="请输入商品名称"/>
       </el-form-item>
-      <el-form-item label="成本" label-width="20%">
-        <el-input v-model="goodInfo.cost" autocomplete="off" />
+      <el-form-item label="成本" label-width="20%" >
+        <el-input v-model="goodInfo.cost" autocomplete="off" placeholder="请输入商品成本" />
       </el-form-item>
       <el-form-item label="售价" label-width="20%">
-        <el-input v-model="goodInfo.price" autocomplete="off" />
+        <el-input v-model="goodInfo.price" autocomplete="off" placeholder="请输入商品售价"/>
       </el-form-item>
       <el-form-item label="销量" label-width="20%">
-        <el-input v-model="goodInfo.salesVolume" autocomplete="off" />
+        <el-input v-model="goodInfo.salesVolume" autocomplete="off" placeholder="请输入商品销量"/>
       </el-form-item>
       <el-form-item label="库存" label-width="20%">
-        <el-input v-model="goodInfo.stock" autocomplete="off" />
+        <el-input v-model="goodInfo.stock" autocomplete="off" placeholder="请输入商品库存"/>
       </el-form-item>
-      <el-form-item label="描述" label-width="20%">
+      <el-form-item label="描述" label-width="20%" >
         <el-input
           type="textarea"
           autosize
           v-model="goodInfo.description"
+          placeholder="请输入商品描述"
           autocomplete="off"
         />
       </el-form-item>
@@ -177,25 +178,26 @@
   <el-dialog v-model="addDialogShow" title="添加商品" width="500">
     <el-form :model="goodInfo">
       <el-form-item label="名称" label-width="20%">
-        <el-input v-model="goodInfo.name" autocomplete="off" />
+        <el-input v-model="goodInfo.name" autocomplete="off" placeholder="请输入商品名称"/>
       </el-form-item>
-      <el-form-item label="成本" label-width="20%">
-        <el-input v-model="goodInfo.cost" autocomplete="off" />
+      <el-form-item label="成本" label-width="20%" >
+        <el-input v-model="goodInfo.cost" autocomplete="off" placeholder="请输入商品成本" />
       </el-form-item>
       <el-form-item label="售价" label-width="20%">
-        <el-input v-model="goodInfo.price" autocomplete="off" />
+        <el-input v-model="goodInfo.price" autocomplete="off" placeholder="请输入商品售价"/>
       </el-form-item>
       <el-form-item label="销量" label-width="20%">
-        <el-input v-model="goodInfo.salesVolume" autocomplete="off" />
+        <el-input v-model="goodInfo.salesVolume" autocomplete="off" placeholder="请输入商品销量"/>
       </el-form-item>
       <el-form-item label="库存" label-width="20%">
-        <el-input v-model="goodInfo.stock" autocomplete="off" />
+        <el-input v-model="goodInfo.stock" autocomplete="off" placeholder="请输入商品库存"/>
       </el-form-item>
-      <el-form-item label="描述" label-width="20%">
+      <el-form-item label="描述" label-width="20%" >
         <el-input
           type="textarea"
           autosize
           v-model="goodInfo.description"
+          placeholder="请输入商品描述"
           autocomplete="off"
         />
       </el-form-item>

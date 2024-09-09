@@ -30,10 +30,16 @@ public class GoodsController {
     private GoodsService goodsService;
     @GetMapping("/selectByPage")
     public RespBean selectByPage(Integer currentPage,String name){
-        PageHelper.startPage(currentPage, 10);
+        if (currentPage!=0){
+            PageHelper.startPage(currentPage, 10);
+            List<Good> goods = goodsService.selectAll(name);
+            PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
+            return RespBean.ok("查询成功", goodPageInfo);
+        }
         List<Good> goods = goodsService.selectAll(name);
-        PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
-        return RespBean.ok("", goodPageInfo);
+        return RespBean.ok("查询成功", goods);
+
+
     }
     @GetMapping("/selectById/{id}")
     public RespBean selectById(@PathVariable("id") Integer id) {
@@ -48,8 +54,10 @@ public class GoodsController {
             PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
             return RespBean.ok("查询成功", goodPageInfo);
         }
+        PageHelper.startPage(currentPage, 10);
         List<Good> goods = goodsService.selectAll("");
-        return RespBean.ok("查询成功", goods);
+        PageInfo<Good> goodPageInfo = new PageInfo<>(goods);
+        return RespBean.ok("查询成功", goodPageInfo);
     }
 
     @PostMapping("/deleteById")
@@ -67,6 +75,7 @@ public class GoodsController {
         // 将Object转换为Good对象
 
         Good good = objectMapper.convertValue(map.get("good"), Good.class);
+        System.out.println(good);
         // 将 groups 转换为 List<Integer>
         List<Integer> groupsList = (List<Integer>) map.get("groups");
 

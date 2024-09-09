@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * ClassName: Admin
@@ -24,9 +24,9 @@ public class Admin {
     //管理员ID
     private Integer id;
     //管理员用户名
-    @NotBlank(message = "用户账号不能为空")
+    @NotNull(message = "用户账号不能为空")
     private String username;
     //管理员密码
-    @NotBlank(message = "用户密码不能为空")
+    @NotNull(message = "用户密码不能为空")
     private String password;
 }

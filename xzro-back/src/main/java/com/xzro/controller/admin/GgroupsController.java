@@ -6,6 +6,7 @@ import com.xzro.service.GgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class GgroupsController {
 
     //添加商品分组
     @PostMapping("/insertGgroup")
-    private RespBean insertGgroup(@RequestBody Ggroup ggroup) {
+    private RespBean insertGgroup(@Valid @RequestBody Ggroup ggroup) {
         if (ggroupsService.insert(ggroup)) {
             return RespBean.ok("添加成功");
         }
@@ -56,7 +57,7 @@ public class GgroupsController {
     }
     //修改商品分组
     @PostMapping("/updateGgroup")
-    private RespBean updateGgroup(@RequestBody Ggroup ggroup){
+    private RespBean updateGgroup(@Valid @RequestBody Ggroup ggroup){
         if (ggroupsService.update(ggroup)){
             return RespBean.ok("修改成功");
         }

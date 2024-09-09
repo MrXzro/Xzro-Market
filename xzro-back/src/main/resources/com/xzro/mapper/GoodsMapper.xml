@@ -29,7 +29,7 @@
     </insert>
     <update id="updateGoods">
         UPDATE `goods`
-        SET `name` = #{name}, `img` = #{img}, `description`=#{description}, `cost` = #{cost}, `price` = #{price}, `sales_volume` = #{salesVolume}, `stock` = #{stock}
+        SET `name` = #{name}, `img` = #{img}, `status`=#{status}, `description`=#{description}, `cost` = #{cost}, `price` = #{price}, `sales_volume` = #{salesVolume}, `stock` = #{stock}
         WHERE `id`= #{id}
     </update>
     <delete id="deleteGood">

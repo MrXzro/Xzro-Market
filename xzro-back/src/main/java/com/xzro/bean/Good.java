@@ -1,6 +1,5 @@
 package com.xzro.bean;
 
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

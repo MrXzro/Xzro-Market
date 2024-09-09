@@ -6,10 +6,12 @@ import com.xzro.bean.RespBean;
 import com.xzro.service.AdminLoginService;
 import com.xzro.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +32,15 @@ public class AdminLoginController {
     private AdminLoginService adminLoginService;
     @PostMapping("/login")
     public RespBean adminLogin(@RequestBody Map<String,Object> userDate){
+
         String username = (String) userDate.get("username");
         String password = SecureUtil.md5(SecureUtil.md5((String) userDate.get("password")));
+        if (username.equals("")) {
+            return RespBean.error("用户名不能为空");
+        }
+        if (password.equals("")) {
+            return RespBean.error("密码不能为空");
+        }
         System.out.println(username);
         Admin admin = adminLoginService.adminLogin(username);
         if (admin!=null){

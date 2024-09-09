@@ -6,6 +6,7 @@ import com.xzro.service.CgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class CgroupController {
 
     //添加分组
     @PostMapping("/insertCgroup")
-    public RespBean insertCgroup(@RequestBody Cgroup cgroup) {
+    public RespBean insertCgroup(@Valid @RequestBody Cgroup cgroup) {
         if (cgroupService.insert(cgroup)) {
             return RespBean.ok("添加成功");
         }
@@ -56,7 +57,7 @@ public class CgroupController {
     }
     //修改分组
     @PostMapping("/updateCgroup")
-    public RespBean updateCgroup(@RequestBody Cgroup cgroup){
+    public RespBean updateCgroup(@Valid @RequestBody Cgroup cgroup){
         if (cgroupService.update(cgroup)) {
             return RespBean.ok("修改成功");
         }

@@ -9,6 +9,7 @@ import com.xzro.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,7 @@ public class CustomerController {
 
     //新增用户接口
     @PostMapping("/insertCustomer")
-    public RespBean insert(@RequestBody Customer customer) {
+    public RespBean insert(@Valid @RequestBody Customer customer) {
         customer.setPassword(SecureUtil.md5(SecureUtil.md5(customer.getPassword())));
         if (customerService.insert(customer)) {
             return RespBean.ok("添加成功");
@@ -78,7 +79,7 @@ public class CustomerController {
     }
     //修改用户接口
     @PostMapping("/updateCustomer")
-    public RespBean update(@RequestBody Customer customer){
+    public RespBean update(@Valid @RequestBody Customer customer){
         if (customerService.update(customer)) {
             return RespBean.ok("修改成功");
         }

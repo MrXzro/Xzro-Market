@@ -1,6 +1,7 @@
 package com.xzro.advice;
 
 import com.xzro.bean.RespBean;
+import com.xzro.exception.XzroException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,7 +21,7 @@ import javax.validation.ConstraintViolationException;
  */
 @RestControllerAdvice
 public class ParamExceptionHandler {
-    @ExceptionHandler({BindException.class})
+    @ExceptionHandler(XzroException.class)
     public RespBean handleMethodArgumentNotValidException(BindException e) {
         BindingResult bindingResult = e.getBindingResult();
         StringBuilder sbf = new StringBuilder("校验失败 ");

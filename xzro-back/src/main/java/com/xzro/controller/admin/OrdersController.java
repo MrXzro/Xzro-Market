@@ -81,11 +81,26 @@ public class OrdersController {
         Order order = ordersService.selectById(id);
         return RespBean.ok("查询成功", order);
     }
-    //根据增加订单
+    //增加订单
     @PostMapping("/insertOrder")
     public RespBean insertOrder(@RequestBody Map<String,Object> map) {
         ObjectMapper objectMapper = new ObjectMapper();
         Order order = objectMapper.convertValue(map.get("order"), Order.class);
+        if (order.getPaymentMethod() == null) {
+            return RespBean.error("付款方式不能为空！");
+        }
+        if (order.getStartDate() == null) {
+            return RespBean.error("创建时间不能为空！");
+        }
+        if (order.getEndDate() == null) {
+            return RespBean.error("结束时间不能为空！");
+        }
+        if (order.getStatus() == null) {
+            return RespBean.error("订单状态不能为空！");
+        }
+        if (order.getCustomerId() == null) {
+            return RespBean.error("订单客户不能为空！");
+        }
         ArrayList<Order> list = (ArrayList<Order>) map.get("goods");
         Integer[] goods = list.toArray(new Integer[0]);
         //生成订单号
@@ -185,6 +200,9 @@ public class OrdersController {
         Integer[] goods = list.toArray(new Integer[0]);
         //获取付款方式
         String paymentMethod = (String) map.get("paymentMethod");
+        if ("".equals(paymentMethod)) {
+            return RespBean.error("付款方式不能为空");
+        }
         order.setPaymentMethod(paymentMethod);
         //生成订单号
         String orderNo = DateUtil.format(new Date(), "yyyyMMddHHmmss" )+ IdUtil.simpleUUID();
