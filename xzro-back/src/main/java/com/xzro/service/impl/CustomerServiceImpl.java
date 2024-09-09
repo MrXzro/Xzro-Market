@@ -27,6 +27,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer selectByUsername(String username) {
+        return customerMapper.selectByUsername(username);
+    }
+
+    @Override
     public Customer selectById(Integer id) {
         return customerMapper.selectById(id);
     }

@@ -15,7 +15,8 @@ import java.util.List;
  */
 public interface CustomerMapper {
     //TODO:根据 手机号码/ 查询所有用户
-
+    //根据用户名查询
+    Customer selectByUsername(String username);
     //查询所有用户(根据姓名查询)
     List<Customer> selectAll(String name);
     //根据ID查询

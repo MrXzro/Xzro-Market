@@ -3,13 +3,14 @@ package com.xzro.controller.admin;
 import com.alibaba.excel.EasyExcel;
 import com.xzro.bean.Customer;
 import com.xzro.bean.Order;
+import com.xzro.bean.RespBean;
+import com.xzro.mapper.UploadDao;
 import com.xzro.service.CustomerService;
 import com.xzro.service.OrdersService;
+import com.xzro.utils.UploadDataListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,6 +32,8 @@ import java.util.List;
 public class ExcelController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private UploadDao uploadDao;
 
 //    http://localhost:8080/api/excel/download
     @GetMapping("download")
@@ -43,4 +46,12 @@ public class ExcelController {
         response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), Customer.class).sheet("客户表").doWrite(customerService.selectAll(""));
     }
+
+    @PostMapping("upload")
+    @ResponseBody
+    public RespBean upload(MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), Customer.class, new UploadDataListener(uploadDao)).sheet().doRead();
+        return RespBean.ok("上传成功！默认密码：xzro123456");
+    }
+
 }

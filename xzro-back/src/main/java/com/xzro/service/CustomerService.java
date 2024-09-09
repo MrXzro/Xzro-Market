@@ -14,9 +14,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface CustomerService {
-    //TODO:适配根据姓名查询
     //查询全部
     List<Customer> selectAll(String name);
+
+    //根据用户名查询用户
+    Customer selectByUsername(String username);
 
     //跟据ID查询
     Customer selectById(Integer id);

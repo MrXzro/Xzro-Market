@@ -89,6 +89,10 @@ import { RouterView } from 'vue-router';
 import router from '@/router'
 import adminApi from '@/api/adminApi';
 import { ElMessage } from 'element-plus';
+import { ref } from 'vue';
+// const activeIndex = ref("")
+
+
 function logout(){
   adminApi.logout().then(resp=>{
     if (resp.code == 10000) {

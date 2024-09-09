@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzro.mapper.UploadMapper">
+    <insert id="batchInsert">
+        INSERT INTO `customer` (`username`,`password`, `img`, `name`, `age`, `gender`, `phone`, `status`, `customer_group_id`) VALUES
+        <foreach collection="list" item="item" separator=",">
+             (#{item.username}, #{item.password}, #{item.img}, #{item.name} , #{item.age}, #{item.gender}, #{item.phone}, #{item.status}, #{item.groupId})
+        </foreach>
+    </insert>
+</mapper>

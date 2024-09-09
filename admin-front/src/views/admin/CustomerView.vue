@@ -1,5 +1,5 @@
 <template>
-    <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
+  <el-breadcrumb :separator-icon="ArrowRight" style="margin-bottom: 20px">
     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
     <el-breadcrumb-item>客户管理</el-breadcrumb-item>
     <el-breadcrumb-item>客户信息</el-breadcrumb-item>
@@ -12,7 +12,16 @@
             <el-col :span="6">
               <el-button @click="showAddDialog">新增</el-button>
               <el-button @click="downloadExcel">导出</el-button>
-              <el-button @click="showAddDialog">导入</el-button>
+              <el-upload style="display:inline;margin-left: 12px;"
+                class="upload-demo"
+                :on-success="uploadsuccess"
+                action="http://localhost:8080/api/excel/upload"
+                :headers="headers"
+                method="post"
+                name="file"
+              >
+                <el-button>导入</el-button>
+              </el-upload>
             </el-col>
             <el-col :span="6">
               <el-input
@@ -91,7 +100,6 @@
                   <el-button link type="primary" size="small">删除</el-button>
                 </template>
               </el-popconfirm>
-
             </template>
           </el-table-column>
         </el-table>
@@ -239,10 +247,28 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { ElMessage } from "element-plus";
 import customerApi from "@/api/customerApi";
 import cgroupApi from "@/api/cgroupApi";
+
+//上传成功回调
+function uploadsuccess(resp) {
+  if (resp.code == 10000) {
+      ElMessage({
+        message: resp.msg,
+        type: "success",
+        duration: 3000,
+      });
+      selectByPage(1);
+    } else {
+      ElMessage.error({
+        message: resp.msg,
+        type: "error",
+        duration: 2000,
+      });
+    }
+}
 //客户信息表
 const CustomerList = ref([]);
 //当前分页
@@ -272,6 +298,11 @@ const groupList = ref([]);
 //头像
 const imageUrl = ref("");
 const name = ref("");
+//获取token
+const headers = computed(() => {
+  let token = sessionStorage.getItem("token");
+  return { token }
+})
 
 //删除客户
 function deleteCustomer(id) {
@@ -407,16 +438,16 @@ function selectByPage(current) {
       allPage.value = resp.data.pages;
     });
 }
-function downloadExcel(){
-  customerApi.download().then(resp => {
-      let blob = new Blob([resp], { type: 'application/xlsx' })
-      let url = window.URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url;
-      link.download = '客户表.xlsx'
-      link.click()
-      URL.revokeObjectURL(url);
-    });
+function downloadExcel() {
+  customerApi.download().then((resp) => {
+    let blob = new Blob([resp], { type: "application/xlsx" });
+    let url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "客户表.xlsx";
+    link.click();
+    URL.revokeObjectURL(url);
+  });
 }
 getAllGroup();
 selectByPage(1);

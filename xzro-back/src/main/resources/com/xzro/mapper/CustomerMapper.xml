@@ -50,4 +50,7 @@
         LEFT JOIN `cgroup` cg ON c.`customer_group_id` = cg.`id`
         WHERE c.`customer_group_id` = #{id} AND c.`isDelete` = 0
     </select>
+    <select id="selectByUsername" resultType="com.xzro.bean.Customer">
+        SELECT * FROM `customer` WHERE `username` = #{username}
+    </select>
 </mapper>
