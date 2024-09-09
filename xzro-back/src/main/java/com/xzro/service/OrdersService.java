@@ -1,6 +1,7 @@
 package com.xzro.service;
 
 import com.xzro.bean.Order;
+import com.xzro.exception.XzroException;
 
 import java.util.List;
 
@@ -27,6 +28,6 @@ public interface OrdersService {
     boolean update(Order order, Integer[] goods);
 
     //添加订单
-    boolean insert(Order order, Integer[] goods);
+    boolean insert(Order order, Integer[] goods) throws XzroException;
 
 }

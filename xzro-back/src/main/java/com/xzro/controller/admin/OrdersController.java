@@ -101,8 +101,12 @@ public class OrdersController {
             sum = sum.add(goodsService.selectById(good).getPrice());
         }
         order.setPaidPrice(sum);
-        if (ordersService.insert(order, goods)) {
-            return RespBean.ok("添加成功");
+        try {
+            if (ordersService.insert(order, goods)) {
+                return RespBean.ok("添加成功");
+            }
+        } catch (XzroException e) {
+            return RespBean.error(e.getMessage());
         }
         return RespBean.error("添加失败");
     }
@@ -205,8 +209,12 @@ public class OrdersController {
             sum = sum.add(goodsService.selectById(good).getPrice());
         }
         order.setPaidPrice(sum);
-        if (ordersService.insert(order, goods)) {
-            return RespBean.ok("添加成功");
+        try {
+            if (ordersService.insert(order, goods)) {
+                return RespBean.ok("添加成功");
+            }
+        } catch (XzroException e) {
+            return RespBean.error(e.getMessage());
         }
         return RespBean.error("添加失败");
     }

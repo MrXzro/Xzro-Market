@@ -54,4 +54,10 @@
     <select id="selectByGroup" resultMap="goods">
         SELECT *  FROM `goods` WHERE `isDelete` = 0 AND `id` IN (SELECT `good_id` FROM `good_group` WHERE `good_group_id` = #{gid})  ORDER BY `id`ASC
     </select>
+    <select id="selectGoodsSelas" resultType="com.xzro.bean.Good">
+        SELECT * FROM `goods` WHERE `isDelete` = 0 ORDER BY `sales_volume` DESC LIMIT 0, 5;
+    </select>
+    <select id="selectGoodsStock" resultType="com.xzro.bean.Good">
+        SELECT * FROM `goods` WHERE `isDelete` = 0 ORDER BY `stock` ASC LIMIT 0, 5;
+    </select>
 </mapper>

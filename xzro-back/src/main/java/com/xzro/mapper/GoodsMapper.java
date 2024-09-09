@@ -35,4 +35,8 @@ public interface GoodsMapper {
     int deleteAssociate(Integer id);
     //添加商品
     int insert(Good good);
+    //获取商品及其销量前五
+    List<Good> selectGoodsSelas();
+    //获取商品库存后五
+    List<Good> selectGoodsStock();
 }

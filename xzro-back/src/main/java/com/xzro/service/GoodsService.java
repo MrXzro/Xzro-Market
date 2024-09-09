@@ -34,4 +34,9 @@ public interface GoodsService {
     //修改商品(事务)
     boolean update(Good good, Integer[] group);
 
+    //获取商品及其销量前五
+    List<Good> selectGoodsSelas();
+    //获取商品库存后五
+    List<Good> selectGoodsStock();
+
 }

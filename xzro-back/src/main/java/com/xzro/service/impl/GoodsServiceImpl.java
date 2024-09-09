@@ -65,6 +65,16 @@ public class GoodsServiceImpl implements GoodsService {
         return true;
     }
 
+    @Override
+    public List<Good> selectGoodsSelas() {
+        return goodsMapper.selectGoodsSelas();
+    }
+
+    @Override
+    public List<Good> selectGoodsStock() {
+        return goodsMapper.selectGoodsStock();
+    }
+
     public Good selectById(Integer id) {
         return goodsMapper.selectById(id);
     }
