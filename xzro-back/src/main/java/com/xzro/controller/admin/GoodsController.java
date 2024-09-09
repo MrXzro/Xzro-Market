@@ -96,16 +96,6 @@ public class GoodsController {
         return RespBean.error("添加失败");
     }
 
-    @GetMapping ("selectGoodsSelas")
-    public RespBean selectGoodsSelas(){
-        List<Good> goods = goodsService.selectGoodsSelas();
-        return RespBean.ok("查询成功",goods);
-    }
-    @GetMapping ("selectGoodsStock")
-    public RespBean selectGoodsStock(){
-        List<Good> goods = goodsService.selectGoodsStock();
-        return RespBean.ok("查询成功",goods);
-    }
 
 
 

@@ -418,7 +418,6 @@ function deleteById(id) {
 //查询全部商品
 function selectGoods() {
   goodsApi.selectByGroup(0, 0).then((resp) => {
-    console.log(resp)
     if (resp.code == 10000) {
       goodsList.value = resp.data.map((item, index) => ({
         label: item.id + "." + item.name + " " + item.price + "￥",

@@ -27,10 +27,6 @@ const goodsApi = {
     },
     update(good, groups) {
         return service.post("/api/goods/updateGood",  {  good,  groups })
-    },selectGoodsSelas(){
-        return service.get(`/api/goods/selectGoodsSelas`)
-    },selectGoodsStock(){
-        return service.get(`/api/goods/selectGoodsStock`)
     }
 
 }
