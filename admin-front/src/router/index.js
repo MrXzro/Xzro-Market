@@ -34,6 +34,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
+      redirect:"/admin/index",
       component: HomeView,
       children:[{
         path:'/admin/index',
