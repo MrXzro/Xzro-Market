@@ -36,10 +36,12 @@ public class MainConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/orders/selectByPage")
                 .excludePathPatterns("/api/ggroups/selectAll")
                 .excludePathPatterns("/api/goods/selectByGroup")
+                .excludePathPatterns("/api/orders/userPay")
                 .excludePathPatterns("/api/orders/userInsertOrder")
                 .excludePathPatterns("/api/orders/deleteById")
                 .excludePathPatterns("/api/orders/selectById")
                 .excludePathPatterns("/customer/login");
+
         registry.addInterceptor(new PublicJwtInterceptor())
                 .addPathPatterns("/api/orders/selectByPage")
                 .addPathPatterns("/api/orders/userInsertOrder")
