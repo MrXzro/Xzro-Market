@@ -45,6 +45,8 @@ public class AdminJwtInterceptor implements HandlerInterceptor {
                     return true;
                 }
             }
+            response.setHeader("token","");
+            response.setHeader("Access-Control-Expose-Headers","token");
             respBean = RespBean.error("令牌无效");
         } catch (SignatureVerificationException e) {
             respBean = RespBean.error("无效签名");
