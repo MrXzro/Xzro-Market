@@ -16,6 +16,10 @@ service.interceptors.request.use(function(config){
 })
 // axios的响应拦截器
 service.interceptors.response.use(response => {
+  let token = response.headers.token;
+  console.log(response.headers);
+  
+  sessionStorage.setItem("token",token)
     return response.data;
   }, error=> {
     if(error.status==403){
