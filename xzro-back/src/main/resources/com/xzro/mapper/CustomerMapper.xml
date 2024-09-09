@@ -8,6 +8,7 @@
         <result column="name" property="name"/>
         <result column="gender" property="gender"/>
         <result column="age" property="age"/>
+        <result column="img" property="img"/>
         <result column="phone" property="phone"/>
         <result column="status" property="status"/>
         <result column="customer_group_id" property="groupId"/>
