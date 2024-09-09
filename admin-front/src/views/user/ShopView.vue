@@ -52,6 +52,15 @@
                   :selectable="checkBox"
                 />
                 <el-table-column fixed prop="id" label="ID" width="50" />
+                <el-table-column width="80" label="图片">
+                  <template #default="scope">
+                    <el-avatar
+                      shape="square"
+                      size=""
+                      :src="'http://localhost:8080/upload/' + scope.row.img"
+                    />
+                  </template>
+                </el-table-column>
                 <el-table-column
                   prop="name"
                   label="商品名"
@@ -126,7 +135,6 @@
                   style="width: 100%"
                   @select="selectGoods"
                   @select-all="selectGoods"
-                  
                 >
                   <el-table-column
                     type="selection"
@@ -134,6 +142,15 @@
                     width="55"
                   />
                   <el-table-column fixed prop="id" label="ID" width="50" />
+                  <el-table-column width="80" label="图片">
+                  <template #default="scope">
+                    <el-avatar
+                      shape="square"
+                      size=""
+                      :src="'http://localhost:8080/upload/' + scope.row.img"
+                    />
+                  </template>
+                </el-table-column>
                   <el-table-column
                     prop="name"
                     label="商品名"
@@ -203,7 +220,12 @@
   </el-row>
   <el-dialog v-model="cart.ifShowAddOrderDialog" title="提交订单" width="500">
     <el-form :model="orderInfo" ref="submitFromRef" style="margin-top: 30px">
-      <el-form-item :rules="rules" prop="paymentMethod" label="付款方式" label-width="20%">
+      <el-form-item
+        :rules="rules"
+        prop="paymentMethod"
+        label="付款方式"
+        label-width="20%"
+      >
         <el-input
           v-model="orderInfo.paymentMethod"
           autocomplete="off"
@@ -247,10 +269,9 @@ const orderInfo = ref({
   paymentMethod: null,
 });
 
-
 //判断可否勾选
-function checkBox(row){
-  return row.status ==  0 && row.stock != 0;
+function checkBox(row) {
+  return row.status == 0 && row.stock != 0;
 }
 //提交订单
 function submitOrder() {
@@ -263,8 +284,8 @@ function submitOrder() {
         type: "success",
         duration: 1200,
         onClose: () => {
-          cart.cart = []
-          cart.ifShowAddOrderDialog = false
+          cart.cart = [];
+          cart.ifShowAddOrderDialog = false;
           router.push("/order");
         },
       });

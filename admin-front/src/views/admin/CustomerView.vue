@@ -12,7 +12,8 @@
             <el-col :span="6">
               <el-button @click="showAddDialog">新增</el-button>
               <el-button @click="downloadExcel">导出</el-button>
-              <el-upload style="display:inline;margin-left: 12px;"
+              <el-upload
+                style="display: inline; margin-left: 12px"
                 class="upload-demo"
                 :on-success="uploadsuccess"
                 action="http://localhost:8080/api/excel/upload"
@@ -119,19 +120,39 @@
   <el-dialog v-model="addDialogShow" title="添加客户" width="500">
     <el-form :model="customerInfo" label-width="15%">
       <el-form-item label="用户名" label-position="right">
-        <el-input v-model="customerInfo.username" autocomplete="off" placeholder="请输入用户名"/>
+        <el-input
+          v-model="customerInfo.username"
+          autocomplete="off"
+          placeholder="请输入用户名"
+        />
       </el-form-item>
       <el-form-item label="姓名" label-position="right">
-        <el-input v-model="customerInfo.name" autocomplete="off" placeholder="请输入姓名"/>
+        <el-input
+          v-model="customerInfo.name"
+          autocomplete="off"
+          placeholder="请输入姓名"
+        />
       </el-form-item>
       <el-form-item label="年龄" label-position="right">
-        <el-input v-model="customerInfo.age" autocomplete="off" placeholder="请输入年龄"/>
+        <el-input
+          v-model="customerInfo.age"
+          autocomplete="off"
+          placeholder="请输入年龄"
+        />
       </el-form-item>
       <el-form-item label="性别" label-position="right">
-        <el-input v-model="customerInfo.gender" autocomplete="off" placeholder="请输入性别"/>
+        <el-input
+          v-model="customerInfo.gender"
+          autocomplete="off"
+          placeholder="请输入性别"
+        />
       </el-form-item>
       <el-form-item label="电话" label-position="right">
-        <el-input v-model="customerInfo.phone" autocomplete="off" placeholder="请输入电话"/>
+        <el-input
+          v-model="customerInfo.phone"
+          autocomplete="off"
+          placeholder="请输入电话"
+        />
       </el-form-item>
       <el-form-item label="密码" label-position="right">
         <el-input
@@ -162,6 +183,7 @@
           class="avatar-uploader"
           action="http://localhost:8080/api/upload"
           name="pic"
+          :headers="headers"
           :value="customerInfo.img"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
@@ -229,6 +251,7 @@
           name="pic"
           :value="customerInfo.img"
           :show-file-list="false"
+          :headers="headers"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
@@ -253,23 +276,6 @@ import { ElMessage } from "element-plus";
 import customerApi from "@/api/customerApi";
 import cgroupApi from "@/api/cgroupApi";
 
-//上传成功回调
-function uploadsuccess(resp) {
-  if (resp.code == 10000) {
-      ElMessage({
-        message: resp.msg,
-        type: "success",
-        duration: 3000,
-      });
-      selectByPage(1);
-    } else {
-      ElMessage.error({
-        message: resp.msg,
-        type: "error",
-        duration: 2000,
-      });
-    }
-}
 //客户信息表
 const CustomerList = ref([]);
 //当前分页
@@ -302,9 +308,26 @@ const name = ref("");
 //获取token
 const headers = computed(() => {
   let token = sessionStorage.getItem("token");
-  return { token }
-})
+  return { token };
+});
 
+//上传成功回调
+function uploadsuccess(resp) {
+  if (resp.code == 10000) {
+    ElMessage({
+      message: resp.msg,
+      type: "success",
+      duration: 3000,
+    });
+    selectByPage(1);
+  } else {
+    ElMessage.error({
+      message: resp.msg,
+      type: "error",
+      duration: 2000,
+    });
+  }
+}
 //删除客户
 function deleteCustomer(id) {
   customerApi.delete(id).then((resp) => {
@@ -346,9 +369,13 @@ function update() {
 }
 //显示修改客户对话框
 function showUpdateDialog(id) {
+  imageUrl.value = ""
   customerApi.selectById(id).then((resp) => {
     if (resp.code == 10000) {
       customerInfo.value = resp.data;
+      if(resp.data.img != null){
+        imageUrl.value = "http://localhost:8080/upload/" + resp.data.img;
+      }
       updateDialogShow.value = true;
     } else {
       ElMessage.error({
@@ -453,3 +480,20 @@ function downloadExcel() {
 getAllGroup();
 selectByPage(1);
 </script>
+<style>
+.avatar-uploader, .avatar {
+				width: 150px;
+				height: 150px;
+				display: block;
+				border: 1px dotted #414243;
+				border-radius: 5px;
+			}
+
+			.el-icon.avatar-uploader-icon {
+				font-size: 28px;
+				color: #8c939d;
+				width: 150px;
+				height: 150px;
+				text-align: center;
+			}
+</style>

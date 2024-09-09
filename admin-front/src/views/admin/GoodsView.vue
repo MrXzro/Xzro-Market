@@ -482,3 +482,20 @@ function selectByPage(current) {
 }
 selectByPage(currentPage.value);
 </script>
+<style>
+.avatar-uploader, .avatar {
+				width: 150px;
+				height: 150px;
+				display: block;
+				border: 1px dotted #dcdfe6;
+				border-radius: 5px;
+			}
+
+			.el-icon.avatar-uploader-icon {
+				font-size: 28px;
+				color: #8c939d;
+				width: 150px;
+				height: 150px;
+				text-align: center;
+			}
+</style>
