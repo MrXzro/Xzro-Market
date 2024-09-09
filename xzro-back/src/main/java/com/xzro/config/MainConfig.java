@@ -30,24 +30,24 @@ public class MainConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //管理员拦截
-        registry.addInterceptor(new AdminJwtInterceptor())
-                .addPathPatterns("/api/**")
-                .excludePathPatterns("/admin/login")
-                .excludePathPatterns("/api/orders/selectByPage")
-                .excludePathPatterns("/api/ggroups/selectAll")
-                .excludePathPatterns("/api/goods/selectByGroup")
-                .excludePathPatterns("/api/goods/selectByGroup")
-                .excludePathPatterns("/api/orders/userInsertOrder")
-                .excludePathPatterns("/api/orders/userPay")
-                .excludePathPatterns("/api/orders/deleteById")
-                .excludePathPatterns("/customer/login");
-        registry.addInterceptor(new PublicJwtInterceptor())
-                .addPathPatterns("/api/orders/selectByPage")
-                .addPathPatterns("/api/orders/userInsertOrder")
-                .addPathPatterns("/api/orders/userPay")
-                .addPathPatterns("/api/orders/deleteById")
-                .addPathPatterns("/api/ggroups/selectAll")
-                .addPathPatterns("/api/orders/selectByPage");
+//        registry.addInterceptor(new AdminJwtInterceptor())
+//                .addPathPatterns("/api/**")
+//                .excludePathPatterns("/admin/login")
+//                .excludePathPatterns("/api/orders/selectByPage")
+//                .excludePathPatterns("/api/ggroups/selectAll")
+//                .excludePathPatterns("/api/goods/selectByGroup")
+//                .excludePathPatterns("/api/goods/selectByGroup")
+//                .excludePathPatterns("/api/orders/userInsertOrder")
+//                .excludePathPatterns("/api/orders/userPay")
+//                .excludePathPatterns("/api/orders/deleteById")
+//                .excludePathPatterns("/customer/login");
+//        registry.addInterceptor(new PublicJwtInterceptor())
+//                .addPathPatterns("/api/orders/selectByPage")
+//                .addPathPatterns("/api/orders/userInsertOrder")
+//                .addPathPatterns("/api/orders/userPay")
+//                .addPathPatterns("/api/orders/deleteById")
+//                .addPathPatterns("/api/ggroups/selectAll")
+//                .addPathPatterns("/api/orders/selectByPage");
     }
 
 

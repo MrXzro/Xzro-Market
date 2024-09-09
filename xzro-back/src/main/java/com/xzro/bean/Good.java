@@ -1,5 +1,6 @@
 package com.xzro.bean;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ExcelIgnoreUnannotated
 public class Good {
     //商品ID
     private Integer id;
