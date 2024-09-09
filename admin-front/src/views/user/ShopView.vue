@@ -49,6 +49,7 @@
                   type="selection"
                   :reserve-selection="true"
                   width="55"
+                  :selectable="checkBox"
                 />
                 <el-table-column fixed prop="id" label="ID" width="50" />
                 <el-table-column
@@ -63,7 +64,6 @@
                   width=""
                   show-overflow-tooltip
                 />
-                <el-table-column prop="cost" label="成本" width="" />
                 <el-table-column prop="price" label="售价" width="" />
                 <el-table-column prop="salesVolume" label="销量" width="" />
                 <el-table-column label="状态" width="">
@@ -126,6 +126,7 @@
                   style="width: 100%"
                   @select="selectGoods"
                   @select-all="selectGoods"
+                  
                 >
                   <el-table-column
                     type="selection"
@@ -145,7 +146,6 @@
                     width=""
                     show-overflow-tooltip
                   />
-                  <el-table-column prop="cost" label="成本" width="" />
                   <el-table-column prop="price" label="售价" width="" />
                   <el-table-column prop="salesVolume" label="销量" width="" />
                   <el-table-column label="状态" width="">
@@ -248,7 +248,10 @@ const orderInfo = ref({
 });
 
 
-
+//判断可否勾选
+function checkBox(row){
+  return row.status ==  0 && row.stock != 0;
+}
 //提交订单
 function submitOrder() {
   //取回选中的商品
@@ -261,7 +264,7 @@ function submitOrder() {
         duration: 1200,
         onClose: () => {
           router.push("/order");
-          cart.cart = []
+          cart.cart.value = []
         },
       });
     } else {
@@ -280,7 +283,6 @@ function selectGoods(selection) {
   cart.totalPrice = selection
     .reduce((total, item) => total + item.price, 0)
     .toFixed(2);
-  // console.log(selection);
 }
 //row-Key返回函数
 function getRowKey(row) {
@@ -288,7 +290,6 @@ function getRowKey(row) {
 }
 //切换分页
 function changePane(TabsPaneContext, e) {
-  console.log(TabsPaneContext.paneName);
   groupId.value = TabsPaneContext.paneName;
   currentPage.value = 1;
   selectGoodsByGroup(1);
@@ -330,7 +331,6 @@ function selectGoodsByGroup(current) {
 function selectAllGgroups() {
   ggroupsApi.selectAll().then((resp) => {
     if (resp.code == 10000) {
-      console.log(resp.data);
       ggroupsList.value = resp.data;
     } else {
       ElMessage.error({

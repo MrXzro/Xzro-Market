@@ -119,24 +119,25 @@
   <el-dialog v-model="addDialogShow" title="添加客户" width="500">
     <el-form :model="customerInfo" label-width="15%">
       <el-form-item label="用户名" label-position="right">
-        <el-input v-model="customerInfo.username" autocomplete="off" />
+        <el-input v-model="customerInfo.username" autocomplete="off" placeholder="请输入用户名"/>
       </el-form-item>
       <el-form-item label="姓名" label-position="right">
-        <el-input v-model="customerInfo.name" autocomplete="off" />
+        <el-input v-model="customerInfo.name" autocomplete="off" placeholder="请输入姓名"/>
       </el-form-item>
       <el-form-item label="年龄" label-position="right">
-        <el-input v-model="customerInfo.age" autocomplete="off" />
+        <el-input v-model="customerInfo.age" autocomplete="off" placeholder="请输入年龄"/>
       </el-form-item>
       <el-form-item label="性别" label-position="right">
-        <el-input v-model="customerInfo.gender" autocomplete="off" />
+        <el-input v-model="customerInfo.gender" autocomplete="off" placeholder="请输入性别"/>
       </el-form-item>
       <el-form-item label="电话" label-position="right">
-        <el-input v-model="customerInfo.phone" autocomplete="off" />
+        <el-input v-model="customerInfo.phone" autocomplete="off" placeholder="请输入电话"/>
       </el-form-item>
       <el-form-item label="密码" label-position="right">
         <el-input
           v-model="customerInfo.password"
           type="password"
+          placeholder="请输入密码"
           autocomplete="off"
         />
       </el-form-item>

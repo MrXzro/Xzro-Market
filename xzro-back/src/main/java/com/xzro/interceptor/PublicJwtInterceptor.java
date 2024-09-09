@@ -35,8 +35,11 @@ public class PublicJwtInterceptor implements HandlerInterceptor {
         RespBean respBean = null;
         try {
             //解析JWT，如果出现问题会抛出异常
-            JwtUtils.parseJwtToMap(token);
+            Map<String, Object> stringObjectMap = JwtUtils.parseJwtToMap(token);
             if (JwtUtils.verifyJwt(token)){
+                String string = JwtUtils.generateJwt(stringObjectMap);
+                response.setHeader("token",string);
+                response.setHeader("Access-Control-Expose-Headers","token");
                 return true;
             }
 

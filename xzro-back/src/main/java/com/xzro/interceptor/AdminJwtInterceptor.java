@@ -39,6 +39,9 @@ public class AdminJwtInterceptor implements HandlerInterceptor {
             if (JwtUtils.verifyJwt(token)){
                 //判断管理员权限
                 if ("admin".equals(stringObjectMap.get("isAdmin"))) {
+                    String string = JwtUtils.generateJwt(stringObjectMap);
+                    response.setHeader("token",string);
+                    response.setHeader("Access-Control-Expose-Headers","token");
                     return true;
                 }
             }

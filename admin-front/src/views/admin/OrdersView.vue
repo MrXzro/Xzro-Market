@@ -185,7 +185,7 @@
   </el-dialog>
   <!-- 修改订单的对话框结束 -->
   <!-- 添加订单的对话框开始 -->
-  <el-dialog v-model="addDialogShow" title="添加商品" width="500">
+  <el-dialog v-model="addDialogShow" title="添加订单" width="500">
     <el-form :model="orderInfo">
       <el-form-item label="付款方式" label-width="20%">
         <el-input
@@ -417,7 +417,7 @@ function deleteById(id) {
 
 //查询全部商品
 function selectGoods() {
-  goodsApi.selectByGroup(0, 0).then((resp) => {
+  goodsApi.selectByPage(0, "").then((resp) => {
     console.log(resp)
     if (resp.code == 10000) {
       goodsList.value = resp.data.map((item, index) => ({
