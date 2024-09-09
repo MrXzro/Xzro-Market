@@ -321,7 +321,7 @@ function payOrder(orderId){
         type: "success",
         duration: 1200,
       });
-      selectByPage(allPage.value);
+      selectByPage(currentPage.value);
     } else {
       ElMessage.error({
         message: resp.msg,
