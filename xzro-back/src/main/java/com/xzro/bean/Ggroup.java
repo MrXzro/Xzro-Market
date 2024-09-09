@@ -3,7 +3,9 @@ package com.xzro.bean;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -18,10 +20,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Validated
 public class Ggroup {
     //商品组ID
     private Integer id;
     //商品组名称
+    @NotBlank(message = "组名不能为空")
     private String name;
     //商品
     private List<Good> goods;
