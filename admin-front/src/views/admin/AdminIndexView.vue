@@ -28,7 +28,6 @@ import * as echarts from "echarts";
 import goodsApi from "@/api/goodsApi";
 
 
-source.value = 172000
 const selasGoodName = ref([]);
 const goodSelas = ref([]);
 
