@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import com.xzro.mapper.CustomerMapper;
 import com.xzro.mapper.GoodsMapper;
+import com.xzro.mapper.InfoMapper;
 import com.xzro.mapper.OrdersMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ class XzroBackApplicationTests {
     private GoodsMapper goodsMapper;
     @Autowired
     private OrdersMapper ordersMapper;
+    @Autowired
+    private InfoMapper infoMapper;
    @Test
    public void test1(){
        System.out.println(goodsMapper.selectByGroup(1));
@@ -50,4 +53,8 @@ class XzroBackApplicationTests {
        System.out.println(endDate);
    }
 
+   @Test
+   public void test5(){
+       System.out.println(infoMapper.selectAllIncome());
+   }
 }

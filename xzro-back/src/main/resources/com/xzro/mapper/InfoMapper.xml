@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzro.mapper.InfoMapper">
+    <select id="selectMemberNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `customer` WHERE `isDelete` = 0
+    </select>
+    <select id="selectOrderNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `orders` WHERE `isDelete` = 0
+    </select>
+    <select id="selectGoodNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM `goods` WHERE `isDelete` = 0
+    </select>
+    <select id="selectAllIncome" resultType="java.math.BigDecimal">
+        SELECT SUM(`paid_price`) FROM `orders` WHERE `isDelete` = 0 AND `status` = 1
+    </select>
+
+
+</mapper>
