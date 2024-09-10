@@ -3,25 +3,32 @@
     <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
     <el-breadcrumb-item>概览</el-breadcrumb-item>
   </el-breadcrumb>
+
   <el-row :gutter="20">
     <el-col :span="12">
-      <el-card style="max-width: 100%;background-color: rgba(0,0,0,0);">
+      <el-card style="max-width: 100%; background-color: rgba(0, 0, 0, 0)">
         <div id="selas" style="width: 100%; height: 300px"></div>
       </el-card>
     </el-col>
     <el-col :span="12">
-      <el-card style="max-width: 100%;background-color: rgba(0,0,0,0);">
+      <el-card style="max-width: 100%; background-color: rgba(0, 0, 0, 0)">
         <div id="stock" style="width: 100%; height: 300px"></div>
       </el-card>
     </el-col>
   </el-row>
 </template>
 <style scoped>
+.el-col {
+  text-align: center;
+}
 </style>
 <script setup>
 import { onMounted, ref } from "vue";
 import * as echarts from "echarts";
 import goodsApi from "@/api/goodsApi";
+
+
+source.value = 172000
 const selasGoodName = ref([]);
 const goodSelas = ref([]);
 

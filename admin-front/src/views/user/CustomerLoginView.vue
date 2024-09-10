@@ -51,7 +51,7 @@ function validateInputs() {
     return false;
   }
   if (!password.value ) {
-    ElMessage.error("密码不能为空");
+    ElMessage.error("密码不能为空且长度不能小于6个字符");
     return false;
   }
   return true;
