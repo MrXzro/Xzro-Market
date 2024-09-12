@@ -41,6 +41,7 @@ import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import router from "@/router";
 import adminApi from "@/api/adminApi";
+import { token } from "@/stores/token";
 
 const username = ref("");
 const password = ref("");
@@ -70,7 +71,8 @@ function login() {
         type: "success",
         duration: 1200,
         onClose: function () {
-          sessionStorage.setItem("token", resp.data);
+          // sessionStorage.setItem("token", resp.data);
+          token().token = resp.data
           router.push("/admin/index");
         },
       });

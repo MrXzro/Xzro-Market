@@ -69,14 +69,15 @@ import { ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 import userApi from "@/api/userApi";
 import { ElMessage } from "element-plus";
+import { token } from "@/stores/token";
 
 const activeIndex = ref("/shop");
 const cart = useCartStore();
 const username = ref("")
 function getUsername(){
-  let token = sessionStorage.getItem("token")
+  // let token = sessionStorage.getItem("token")
   // 拆分JWT，取出第二部分（Payload）
-  const base64Payload = token.split('.')[1];
+  const base64Payload = token().token.split('.')[1];
   // Base64 解码（处理 Base64 URL 编码）
   const payload = JSON.parse(atob(base64Payload.replace(/-/g, '+').replace(/_/g, '/')));
   // 输出解码后的结果

@@ -40,9 +40,11 @@ import userApi from "@/api/userApi";
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import router from "@/router";
+import { token } from "@/stores/token";
 
 const username = ref("");
 const password = ref("");
+const loginToken = token()
 
 // 校验函数
 function validateInputs() {
@@ -69,7 +71,8 @@ function login() {
         type: "success",
         duration: 1200,
         onClose: function () {
-          sessionStorage.setItem("token", resp.data);
+          loginToken.token = resp.data
+          // sessionStorage.setItem("token", resp.data);
           router.push("/shop");
         },
       });

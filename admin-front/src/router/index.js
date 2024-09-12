@@ -13,6 +13,7 @@ import CustomerOrdersView from '@/views/user/CustomerOrdersView.vue'
 import CustomerLoginView from '@/views/user/CustomerLoginView.vue'
 import AdminLoginView from '@/views/admin/AdminLoginView.vue'
 import AdminIndexView from '@/views/admin/AdminIndexView.vue'
+import { token } from '@/stores/token'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -80,8 +81,8 @@ router.beforeEach((to, from) => {
       return true
   } else { //如果当前访问的不是登录页
       //获取token
-      let token = sessionStorage.getItem('token');
-      if(token == null) { //如果token不存在去登录页
+      // let token = sessionStorage.getItem('token');
+      if(token().token == null) { //如果token不存在去登录页
         if(to.path.search("/admin")==0){
           return "/admin/login"
         }
