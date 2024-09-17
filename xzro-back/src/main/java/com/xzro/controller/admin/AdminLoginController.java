@@ -1,19 +1,23 @@
 package com.xzro.controller.admin;
 
+import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.crypto.SecureUtil;
 import com.xzro.bean.Admin;
 import com.xzro.bean.RespBean;
 import com.xzro.service.AdminLoginService;
 import com.xzro.utils.JwtUtils;
+import com.xzro.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.sampled.Line;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * ClassName: AdminLoginController
@@ -30,11 +34,22 @@ import java.util.Map;
 public class AdminLoginController {
     @Autowired
     private AdminLoginService adminLoginService;
+    @Autowired
+    private RedisUtil redisUtil;
+
     @PostMapping("/login")
     public RespBean adminLogin(@RequestBody Map<String,Object> userDate){
 
         String username = (String) userDate.get("username");
         String password = SecureUtil.md5(SecureUtil.md5((String) userDate.get("password")));
+        String captchaId = (String) userDate.get("captchaId");
+        String captcha = (String) userDate.get("captcha");
+        //获取正确的验证码
+        String captchaCode = (String)redisUtil.get(captchaId);
+        //比较验证码
+        if (captcha==null||(captcha!=null&&!captcha.equalsIgnoreCase(captchaCode))) {
+            return RespBean.error("验证码错误");
+        }
         if (username.equals("")) {
             return RespBean.error("用户名不能为空");
         }
@@ -60,4 +75,5 @@ public class AdminLoginController {
         JwtUtils.invalidateToken(token);
         return RespBean.ok("退出成功");
     }
+
 }
