@@ -4,6 +4,8 @@ import com.xzro.bean.Good;
 import com.xzro.mapper.GoodsMapper;
 import com.xzro.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,16 +26,19 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsMapper goodsMapper;
 
     @Override
+    @Cacheable(value = "supermarket-g", key = "'goodList'", unless = "#result==null || #result.size()==0")
     public List<Good> selectAll(String name) {
         return goodsMapper.selectAll(name);
     }
 
     @Override
+    @Cacheable(value = "supermarket-g", key = "'goodList'", unless = "#result==null || #result.size()==0")
     public List<Good> selectByName(String name) {
         return goodsMapper.selectAll(name);
     }
 
     @Override
+    @Cacheable(value = "supermarket-g", key = "'goodList'", unless = "#result==null || #result.size()==0")
     public List<Good> selectByGroup(Integer gid) {
         return goodsMapper.selectByGroup(gid);
     }
@@ -41,6 +46,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "supermarket-g", key = "'goodList'" )
     public boolean insert(Good good, Integer[] group) {
         goodsMapper.insert(good);
         if (group.length != 0) {
@@ -50,11 +56,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'goodList'" )
     public boolean delete(Integer id) {
         return goodsMapper.deleteGood(id) != 0;
     }
 
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'goodList'" )
     @Transactional(rollbackFor = Exception.class)
     public boolean update(Good good, Integer[] group) {
         goodsMapper.updateGoods(good);

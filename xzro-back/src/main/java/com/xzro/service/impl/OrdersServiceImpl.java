@@ -8,6 +8,8 @@ import com.xzro.mapper.OrdersMapper;
 import com.xzro.service.GoodsService;
 import com.xzro.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,24 +35,29 @@ public class OrdersServiceImpl implements OrdersService {
 
     //查询所有订单
     @Override
+    @Cacheable(value = "supermarket-g", key = "'orderList'", unless = "#result==null || #result.size()==0")
     public List<Order> selectAll(String name, Integer id) {
         return ordersMapper.selectAll(name, id);
     }
 
     //根据ID查询订单
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'orderList'" )
     public Order selectById(Integer id) {
         return ordersMapper.selectById(id);
     }
 
     //删除订单
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'orderList'" )
+
     public boolean delete(Integer id) {
         return ordersMapper.delete(id) != 0;
     }
 
     //更新订单
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'orderList'" )
     @Transactional(rollbackFor = Exception.class)
     public boolean update(Order order, Integer[] goods) {
         ordersMapper.update(order);
@@ -63,6 +70,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     //添加订单
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'orderList'" )
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(Order order, Integer[] goods) throws XzroException {
         ordersMapper.insert(order);

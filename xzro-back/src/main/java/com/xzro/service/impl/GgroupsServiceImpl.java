@@ -4,6 +4,8 @@ import com.xzro.bean.Ggroup;
 import com.xzro.mapper.GgroupMapper;
 import com.xzro.service.GgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ public class GgroupsServiceImpl implements GgroupsService {
     @Autowired
     private GgroupMapper ggroupMapper;
     @Override
+    @Cacheable(value = "supermarket-g", key = "'ggroupList'", unless = "#result==null || #result.size()==0")
     public List<Ggroup> selectAll() {
         return ggroupMapper.selectAll();
     }
@@ -33,6 +36,7 @@ public class GgroupsServiceImpl implements GgroupsService {
     }
 
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'ggroupList'" )
     @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer id) {
         ggroupMapper.delete(id);
@@ -41,11 +45,13 @@ public class GgroupsServiceImpl implements GgroupsService {
     }
 
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'ggroupList'" )
     public boolean insert(Ggroup ggroup) {
         return ggroupMapper.insert(ggroup) != 0;
     }
 
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'ggroupList'" )
     public boolean update(Ggroup ggroup) {
         return ggroupMapper.update(ggroup) != 0;
     }

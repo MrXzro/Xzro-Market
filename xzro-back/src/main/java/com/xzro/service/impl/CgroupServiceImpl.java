@@ -5,6 +5,8 @@ import com.xzro.mapper.CgroupMapper;
 import com.xzro.mapper.GgroupMapper;
 import com.xzro.service.CgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class CgroupServiceImpl implements CgroupService {
     private CgroupMapper cgroupMapper;
     //查询所有
     @Override
+    @Cacheable(value = "supermarket-g", key = "'ggroupList'", unless = "#result==null || #result.size()==0")
     public List<Cgroup> selectAll() {
         return cgroupMapper.selectAll("");
     }
@@ -34,16 +37,19 @@ public class CgroupServiceImpl implements CgroupService {
     }
     //根据ID删除
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'ggroupList'" )
     public boolean delete(Integer id) {
         return cgroupMapper.delete(id) != 0;
     }
     //添加分组
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'ggroupList'" )
     public boolean insert(Cgroup cgroup) {
         return cgroupMapper.insert(cgroup) != 0;
     }
     //修改分组
     @Override
+    @CacheEvict(value = "supermarket-g", key = "'ggroupList'" )
     public boolean update(Cgroup cgroup) {
         return cgroupMapper.update(cgroup)!=0;
     }
